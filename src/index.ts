@@ -1,14 +1,17 @@
 import express, { Request, Response } from 'express';
+import { ToriListing } from './types/ToriListing';
 
-const app = express();
-const port = process.env.PORT || 3000;
+export const app = express();
 
 app.use(express.json());
 
-app.get('/', (_req: Request, res: Response) => {
-  res.json({ message: 'Tori.fi listing analytics API' });
+app.post('/api/listings', (req: Request<{}, {}, ToriListing>, res: Response) => {
+  res.json({ success: true });
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+if (require.main === module) {
+  const port = process.env.PORT || 3000;
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  });
+}

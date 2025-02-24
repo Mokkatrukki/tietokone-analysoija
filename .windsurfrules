@@ -2,3 +2,4 @@
 2. We do testdriven development in this project
 3. For new features, we follow the KISS principle
 4. This project is tori.fi listing analytics project
+5. npm run is running in terminal and it will refresh automatically if there are changes
