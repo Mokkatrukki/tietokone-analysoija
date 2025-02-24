@@ -24,3 +24,12 @@ export const testListing: ToriListing = {
   sellerType: "yksityinen",
   errors: []
 };
+
+export const minimalValidListing: ToriListing = {
+  id: "12345",
+  url: "https://www.tori.fi/item/12345",
+  title: "Minimal Valid Item",
+  price: 100,
+  type: "myydään",
+  description: "Minimal valid description"
+};

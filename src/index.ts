@@ -1,11 +1,28 @@
 import express, { Request, Response } from 'express';
-import { ToriListing } from './types/ToriListing';
+import { ToriListingSchema } from './schemas/toriListing.schema';
+import { z } from 'zod';
 
 export const app = express();
 
 app.use(express.json());
 
-app.post('/api/listings', (req: Request<{}, {}, ToriListing>, res: Response) => {
+app.post('/api/listings', (req: Request<{}, {}, z.infer<typeof ToriListingSchema>>, res: Response) => {
+  const result = ToriListingSchema.safeParse(req.body);
+
+  if (!result.success) {
+    // Format Zod errors into a more readable format
+    const errors = result.error.issues.map(issue => ({
+      field: issue.path.join('.'),
+      message: issue.message
+    }));
+    
+    return res.status(400).json({ 
+      error: 'Validation failed',
+      details: errors
+    });
+  }
+
+  // result.data contains the validated and typed data
   res.json({ success: true });
 });
 
