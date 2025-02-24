@@ -22,3 +22,7 @@ build/
 
 # Test coverage
 coverage/
+
+# CPU Specs data files
+cpu-specs.db
+cpu-specs.json
