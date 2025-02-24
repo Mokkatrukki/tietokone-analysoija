@@ -16,7 +16,7 @@ export const ToriListingSchema = z.object({
     primary: z.string(),
     secondary: z.string(),
     tertiary: z.string()
-  }).optional(),
+  }),
   
   additionalInfo: z.record(z.unknown()).optional(),
   address: z.string().optional(),
