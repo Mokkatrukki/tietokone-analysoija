@@ -26,3 +26,5 @@ coverage/
 # CPU Specs data files
 cpu-specs.db
 cpu-specs.json
+gpu-specs.json
+intel-cpu-gpu.json
