@@ -18,3 +18,29 @@ describe('GPU Information Extraction', () => {
     });
   });
 });
+describe('Description GPU Extraction - AMD Integrated', () => {
+    it('should extract Radeon Graphics from Ryzen 7 PRO laptop listing', () => {
+      const description = "Windows 11 ProAMD Ryzen 7 PRO 4750U with Radeon Graphics 1.70 GHz, 8 ydintä16 Gt RAM500 Gt SSD Ostettu 2021 opiskelua varten. Mukaan saa läppäriin sopivan telakan.";
+      expect(extractGpu(description)).toBe('Ryzen 7 PRO 4750U with Radeon Graphics');
+    });
+
+    it('should extract Radeon Graphics from Ryzen 3 laptop listing', () => {
+      const description = "Myydään käytetty läppäri. AMD Ryzen 3 5300U with Radeon Graphics, 16GB RAM, 512GB SSD";
+      expect(extractGpu(description)).toBe('Ryzen 3 5300U with Radeon Graphics');
+    });
+
+    it('should extract Radeon Graphics from Ryzen 3 PRO laptop listing', () => {
+      const description = "Lenovo ThinkPad, AMD Ryzen 3 PRO 5450U with Radeon Graphics, 8GB RAM, Windows 11";
+      expect(extractGpu(description)).toBe('Ryzen 3 PRO 5450U with Radeon Graphics');
+    });
+
+    it('should extract Radeon Graphics from Ryzen 5 PRO desktop listing', () => {
+      const description = "Tehokas työasema: AMD Ryzen 5 PRO 4400GE with Radeon Graphics, 32GB RAM, 1TB NVMe";
+      expect(extractGpu(description)).toBe('Ryzen 5 PRO 4400GE with Radeon Graphics');
+    });
+
+    it('should extract Radeon Graphics from Ryzen 3 7000 series laptop', () => {
+      const description = "Uusi kannettava: AMD Ryzen 3 7330U with Radeon Graphics, 16GB RAM, erittäin nopea";
+      expect(extractGpu(description)).toBe('Ryzen 3 7330U with Radeon Graphics');
+    });
+  });
