@@ -98,4 +98,21 @@ export function getIntegratedGpuForCpu(db: Database, cpuName: string): Promise<s
       }
     );
   });
+}
+
+export function searchGpuSpecs(db: Database, searchTerm: string): Promise<GpuSpec | null> {
+  return new Promise((resolve, reject) => {
+    const words = searchTerm.split(' ').filter(word => word.length > 0);
+    const conditions = words.map(() => 'name LIKE ?').join(' AND ');
+    const params = words.map(word => `%${word}%`);
+
+    db.get(
+      `SELECT * FROM gpu_specs WHERE ${conditions} ORDER BY LENGTH(name) ASC LIMIT 1`,
+      params,
+      (err, row: GpuSpec | undefined) => {
+        if (err) reject(err);
+        else resolve(row || null);
+      }
+    );
+  });
 } 

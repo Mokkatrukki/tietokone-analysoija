@@ -2,7 +2,7 @@ import { Database } from 'sqlite3';
 
 export interface CpuSpec {
   name: string;
-  cpu_mark: string;
+  score: string;
   rank: string;
 }
 
@@ -11,7 +11,7 @@ export function createCpuTable(db: Database): Promise<void> {
     db.run(`
       CREATE TABLE IF NOT EXISTS cpu_specs (
         name TEXT PRIMARY KEY,
-        cpu_mark TEXT,
+        score TEXT,
         rank TEXT
       )
     `, (err) => {
@@ -24,11 +24,28 @@ export function createCpuTable(db: Database): Promise<void> {
 export function insertCpuSpec(db: Database, spec: CpuSpec): Promise<void> {
   return new Promise((resolve, reject) => {
     db.run(
-      'INSERT OR REPLACE INTO cpu_specs (name, cpu_mark, rank) VALUES (?, ?, ?)',
-      [spec.name, spec.cpu_mark, spec.rank],
+      'INSERT OR REPLACE INTO cpu_specs (name, score, rank) VALUES (?, ?, ?)',
+      [spec.name, spec.score, spec.rank],
       (err) => {
         if (err) reject(err);
         else resolve();
+      }
+    );
+  });
+}
+
+export function searchCpuSpecs(db: Database, searchTerm: string): Promise<CpuSpec | null> {
+  return new Promise((resolve, reject) => {
+    const words = searchTerm.split(' ').filter(word => word.length > 0);
+    const conditions = words.map(() => 'name LIKE ?').join(' AND ');
+    const params = words.map(word => `%${word}%`);
+
+    db.get(
+      `SELECT * FROM cpu_specs WHERE ${conditions}`,
+      params,
+      (err, row: CpuSpec | undefined) => {
+        if (err) reject(err);
+        else resolve(row || null);
       }
     );
   });
@@ -53,11 +70,11 @@ export function importCpuSpecs(db: Database, specs: CpuSpec[]): Promise<void> {
       db.run('BEGIN TRANSACTION');
       
       const stmt = db.prepare(
-        'INSERT OR REPLACE INTO cpu_specs (name, cpu_mark, rank) VALUES (?, ?, ?)'
+        'INSERT OR REPLACE INTO cpu_specs (name, score, rank) VALUES (?, ?, ?)'
       );
       
       specs.forEach(spec => {
-        stmt.run(spec.name, spec.cpu_mark, spec.rank);
+        stmt.run(spec.name, spec.score, spec.rank);
       });
       
       stmt.finalize();
