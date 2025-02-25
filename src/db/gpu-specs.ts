@@ -76,18 +76,25 @@ export function linkCpuToGpu(db: Database, relation: CpuGpuRelation): Promise<vo
   });
 }
 
-export function getIntegratedGpuForCpu(db: Database, cpuName: string): Promise<GpuSpec | null> {
+interface GpuQueryResult {
+  integrated_gpu_name: string;
+}
+
+/**
+ * Extracts GPU model information from a text description.
+ * Handles both discrete NVIDIA GPUs and AMD integrated graphics.
+ * @param description - The text description to extract GPU information from
+ * @returns The extracted GPU model name or null if not found
+ */
+export function getIntegratedGpuForCpu(db: Database, cpuName: string): Promise<string | null> {
   return new Promise((resolve, reject) => {
     const normalizedCpuName = normalizeCpuName(cpuName);
     db.get(
-      `SELECT g.* 
-       FROM gpu_specs g
-       JOIN cpu_gpu_relations r ON g.name = r.integrated_gpu_name
-       WHERE r.cpu_name = ?`,
+      'SELECT integrated_gpu_name FROM cpu_gpu_relations WHERE cpu_name = ?',
       [normalizedCpuName],
-      (err, row) => {
+      (err, row: GpuQueryResult | undefined) => {
         if (err) reject(err);
-        else resolve(row ? row as GpuSpec : null);
+        else resolve(row ? row.integrated_gpu_name : null);
       }
     );
   });
