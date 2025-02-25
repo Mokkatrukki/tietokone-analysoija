@@ -28,6 +28,3 @@ cpu-specs.db
 cpu-specs.json
 gpu-specs.json
 intel-cpu-gpu.json
-
-# Scraper files
-scrappers/
