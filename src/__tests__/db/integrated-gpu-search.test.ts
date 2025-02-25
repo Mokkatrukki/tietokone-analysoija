@@ -32,6 +32,10 @@ describe('Integrated GPU Search', () => {
     const result = await getIntegratedGpuForCpu(db, 'Core i3-2330M');
     expect(result).toBe('Intel HD 3000');
   });
+  it('should find Intel HD 3000 for i3-2330M', async () => {
+    const result = await getIntegratedGpuForCpu(db, 'i3-2330M');
+    expect(result).toBe('Intel HD 3000');
+  });
 
   it('should find Intel HD Graphics 620 for Core i3-7100U', async () => {
     const result = await getIntegratedGpuForCpu(db, 'Core i3-7100U');

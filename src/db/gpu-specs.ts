@@ -90,8 +90,8 @@ export function getIntegratedGpuForCpu(db: Database, cpuName: string): Promise<s
   return new Promise((resolve, reject) => {
     const normalizedCpuName = normalizeCpuName(cpuName);
     db.get(
-      'SELECT integrated_gpu_name FROM cpu_gpu_relations WHERE cpu_name = ?',
-      [normalizedCpuName],
+      'SELECT integrated_gpu_name FROM cpu_gpu_relations WHERE cpu_name LIKE ?',
+      [`%${normalizedCpuName}%`],
       (err, row: GpuQueryResult | undefined) => {
         if (err) reject(err);
         else resolve(row ? row.integrated_gpu_name : null);
