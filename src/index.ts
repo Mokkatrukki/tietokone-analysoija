@@ -1,12 +1,21 @@
 import express, { Request, Response } from 'express';
 import { ToriListingSchema } from './schemas/toriListing.schema';
 import { z } from 'zod';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerDefinition } from './swagger';
+import { analyzeListing } from './listing-analyzer';
+import { Database } from 'sqlite3';
+import path from 'path';
 
 export const app = express();
+const db = new Database(path.join(__dirname, '../cpu-specs.db'));
 
 app.use(express.json());
 
-app.post('/api/listings', (req: Request<{}, {}, z.infer<typeof ToriListingSchema>>, res: Response) => {
+// Swagger UI setup
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
+
+app.post('/api/listings', async (req: Request<{}, {}, z.infer<typeof ToriListingSchema>>, res: Response) => {
   const result = ToriListingSchema.safeParse(req.body);
 
   if (!result.success) {
@@ -22,13 +31,25 @@ app.post('/api/listings', (req: Request<{}, {}, z.infer<typeof ToriListingSchema
     });
   }
 
-  // result.data contains the validated and typed data
-  res.json({ success: true });
+  try {
+    const analysis = await analyzeListing(db, result.data);
+    res.json({ 
+      success: true,
+      analysis
+    });
+  } catch (error) {
+    console.error('Error analyzing listing:', error);
+    res.status(500).json({ 
+      error: 'Internal server error',
+      details: [{ message: 'Failed to analyze listing' }]
+    });
+  }
 });
 
 if (require.main === module) {
   const port = process.env.PORT || 3000;
   app.listen(port, () => {
     console.log(`Server running on port ${port}`);
+    console.log(`Swagger documentation available at http://localhost:${port}/api-docs`);
   });
 }

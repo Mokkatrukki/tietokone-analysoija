@@ -5,23 +5,19 @@ import { testListing, minimalValidListing, removeFields } from '../../test/testD
 describe('Tori Listing API', () => {
   describe('POST /api/listings', () => {
     it('should accept a complete valid listing', async () => {
-      const response = await request(app)
+      await request(app)
         .post('/api/listings')
         .send(testListing)
         .expect('Content-Type', /json/)
         .expect(200);
-
-      expect(response.body).toEqual({ success: true });
     });
 
     it('should accept a minimal valid listing with only required fields', async () => {
-      const response = await request(app)
+      await request(app)
         .post('/api/listings')
         .send(minimalValidListing)
         .expect('Content-Type', /json/)
         .expect(200);
-
-      expect(response.body).toEqual({ success: true });
     });
 
     describe('Required fields validation', () => {

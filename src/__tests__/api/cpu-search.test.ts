@@ -50,6 +50,7 @@ describe('CPU Information Extraction', () => {
       const description = "Hyvä Dell Latitude E6520 läppäri. Toimii hyvin - ainoa ongelma on akku (vanha / ei toimi), mutta tietokone toimii edelleen hyvin. 120e - Noutaa Pälkäneeltä tai 8e postitus - käteinen, pankkisiirto, MobilePay tai Paypal. You can also message me in English if that is easier :) Sisältää:- Dell E-6520 kannettava / laptop-- Intel Core i5 2540M 2.60GHz 32nm CPU-- 8GB DDR3 RAM";
       expect(extractProcessor(description)).toBe('i5-2540M');
     });
+    
 
     it('should return null for description without processor info', () => {
       const description = "Kannettava tietokone myytävänä. Hyvä kunto.";
