@@ -4,11 +4,10 @@ import { z } from 'zod';
 import swaggerUi from 'swagger-ui-express';
 import { swaggerDefinition } from './swagger';
 import { analyzeListing } from './listing-analyzer';
-import { Database } from 'sqlite3';
-import path from 'path';
+import { HardwareSpecsDB } from './db/hardware-specs';
 
 export const app = express();
-const db = new Database(path.join(__dirname, '../cpu-specs.db'));
+const db = HardwareSpecsDB.getInstance();
 
 app.use(express.json());
 

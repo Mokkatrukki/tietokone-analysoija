@@ -1,116 +1,128 @@
 import { Database } from 'sqlite3';
 import { ToriListing } from './types/ToriListing';
-import { isLaptopListing } from './utils/categoryUtils';
-import { searchCpuSpecs } from './db/cpu-specs';
-import { searchGpuSpecs, getIntegratedGpuForCpu } from './db/gpu-specs';
-import { extractProcessor } from './utils/processorExtractor';
-import { extractGpu } from './utils/gpuExtractor';
+import { HardwareSpecsDB } from './db/hardware-specs';
 
-export interface AnalyzerResult {
+interface AnalysisResult {
   cpu: {
-    name: string | null;
-    score: string | null;
-    rank: string | null;
-  };
+    name: string;
+    score: string;
+    rank: string;
+  } | null;
   gpu: {
-    name: string | null;
-    score: string | null;
-    rank: string | null;
-  };
+    name: string;
+    score: string;
+    rank: string;
+  } | null;
 }
 
-/**
- * Analyzes a Tori.fi listing to extract CPU and GPU information
- * 
- * Workflow:
- * 1. Check if listing is a laptop using categoryUtils.isLaptopListing
- *    - If not a laptop, return null
- * 
- * 2. Try to find CPU model from listing
- *    - First look in description for CPU model (i5 8250U)
- *    - If not found in description, look in title
- *    - If no CPU found, return null
- * 
- * 3. Search CPU from database
- *    - Use searchCpuSpecs to get CPU details (name, score, rank)
- *    - If CPU not found in database, return null
- * 
- * 4. Try to find discrete GPU first
- *    - Use extractGpu to find GPU from description
- *    - Use extractGpu to find GPU from title
- *    - If GPU found, search GPU specs from database
- * 
- * 5. Fall back to integrated GPU
- *    - Use getIntegratedGpuForCpu to find integrated GPU
- *    - Search GPU specs from database
- * 
- * 6. Return combined CPU and GPU information with benchmark scores
- */
-export async function analyzeListing(db: Database, listing: ToriListing): Promise<AnalyzerResult> {
-  console.log('Analyzing listing:', listing.title);
+function extractCpuModel(text: string): string | null {
+  // Common Intel CPU patterns
+  const intelPatterns = [
+    /i\d[\s-]+\d{4,}[A-Z]?[A-Z]?/i,  // i5-8250U, i7-1165G7
+    /i\d[\s-]+\d{3}[A-Z]?[A-Z]?/i,   // i5-750, i7-860
+  ];
 
-  const nullResult = {
-    name: null,
-    score: null,
-    rank: null
-  };
+  // Common AMD CPU patterns
+  const amdPatterns = [
+    /Ryzen\s+\d[\s-]+\d{4}[A-Z]?[A-Z]?/i,  // Ryzen 5 5600X, Ryzen 7 3700X
+    /Ryzen\s+\d[\s-]+PRO\s+\d{4}[A-Z]?[A-Z]?/i  // Ryzen 5 PRO 4650U
+  ];
 
-  // 1. Check if listing is a laptop
-  if (!isLaptopListing(listing)) {
-    console.log('Not a laptop listing, skipping');
-    return { cpu: nullResult, gpu: nullResult };
+  const patterns = [...intelPatterns, ...amdPatterns];
+
+  for (const pattern of patterns) {
+    const match = text.match(pattern);
+    if (match) {
+      return match[0].trim();
+    }
   }
 
-  // 2. Try to find CPU model from listing
-  const cpuFromDescription = extractProcessor(listing.description);
-  const cpuFromTitle = extractProcessor(listing.title);
+  return null;
+}
+
+function extractGpuModel(text: string): string | null {
+  // Common discrete GPU patterns
+  const patterns = [
+    /GeForce[\s-]+(GTX|RTX)?[\s-]*\d{3,4}[\s-]*(Ti|Super)?/i,  // GeForce RTX 3080, GTX 1660 Ti
+    /Radeon[\s-]+(RX|HD)?[\s-]*\d{3,4}[\s-]*(XT|M)?/i,  // Radeon RX 6800 XT
+    /Intel[\s-]+(HD|UHD|Iris)[\s-]*Graphics[\s-]*\d*/i,  // Intel UHD Graphics 620
+    /Intel[\s-]+Arc[\s-]*[A-Z]\d+/i  // Intel Arc A770
+  ];
+
+  for (const pattern of patterns) {
+    const match = text.match(pattern);
+    if (match) {
+      return match[0].trim();
+    }
+  }
+
+  return null;
+}
+
+export async function analyzeListing(db: HardwareSpecsDB, listing: ToriListing): Promise<AnalysisResult | null> {
+  console.log(`Analyzing listing: ${listing.title}`);
+
+  // Check if this is a laptop listing
+  if (!listing.categories?.full.toLowerCase().includes('kannettavat')) {
+    console.log('Not a laptop listing, skipping');
+    return null;
+  }
+
+  // Extract CPU model from title and description
+  const cpuFromDescription = extractCpuModel(listing.description);
+  const cpuFromTitle = extractCpuModel(listing.title);
+
   console.log('Found CPU:', { fromDescription: cpuFromDescription, fromTitle: cpuFromTitle });
-  
+
+  // Search for CPU in database
   const cpuModel = cpuFromDescription || cpuFromTitle;
   if (!cpuModel) {
     console.log('No CPU model found');
-    return { cpu: nullResult, gpu: nullResult };
+    return null;
   }
 
-  // 3. Search CPU from database
-  const cpu = await searchCpuSpecs(db, cpuModel);
-  console.log('CPU database search result:', cpu);
-  if (!cpu) {
-    console.log('CPU not found in database');
-    return { cpu: nullResult, gpu: nullResult };
+  const cpuSpec = await db.searchCpuSpecs(cpuModel);
+  console.log('CPU database search result:', cpuSpec);
+
+  if (!cpuSpec) {
+    return null;
   }
 
-  // 4. Try to find discrete GPU first
-  const gpuFromDescription = extractGpu(listing.description);
-  const gpuFromTitle = extractGpu(listing.title);
+  // Extract GPU model from title and description
+  const gpuFromDescription = extractGpuModel(listing.description);
+  const gpuFromTitle = extractGpuModel(listing.title);
+
   console.log('Found GPU:', { fromDescription: gpuFromDescription, fromTitle: gpuFromTitle });
-  
-  const discreteGpu = gpuFromDescription || gpuFromTitle;
-  if (discreteGpu) {
-    console.log('Searching for discrete GPU:', discreteGpu);
-    const gpu = await searchGpuSpecs(db, discreteGpu);
-    if (gpu) {
-      console.log('Found discrete GPU in database');
-      return { cpu, gpu };
+
+  // Search for GPU in database
+  let gpuSpec = null;
+  const gpuModel = gpuFromDescription || gpuFromTitle;
+
+  if (gpuModel) {
+    gpuSpec = await db.searchGpuSpecs(gpuModel);
+  } else {
+    // If no discrete GPU found, try to find integrated GPU based on CPU
+    console.log('Looking for integrated GPU for CPU:', cpuModel);
+    const integratedGpuName = await db.getIntegratedGpuForCpu(cpuModel);
+    
+    if (integratedGpuName) {
+      console.log('Found integrated GPU:', integratedGpuName);
+      gpuSpec = await db.searchGpuSpecs(integratedGpuName);
     }
-    console.log('Discrete GPU not found in database');
   }
 
-  // 5. Fall back to integrated GPU
-  console.log('Looking for integrated GPU for CPU:', cpuModel);
-  const integratedGpuName = await getIntegratedGpuForCpu(db, cpuModel);
-  if (!integratedGpuName) {
-    console.log('No integrated GPU found for CPU');
-    return { cpu, gpu: nullResult };
-  }
+  console.log('Analysis complete:', { cpu: cpuSpec, gpu: gpuSpec });
 
-  console.log('Found integrated GPU:', integratedGpuName);
-  const gpu = await searchGpuSpecs(db, integratedGpuName);
-  if (!gpu) {
-    console.log('Integrated GPU not found in database');
-    return { cpu, gpu: nullResult };
-  }
-
-  console.log('Analysis complete:', { cpu, gpu });
-  return { cpu, gpu };
+  return {
+    cpu: cpuSpec ? {
+      name: cpuSpec.name,
+      score: cpuSpec.score.toString(),
+      rank: cpuSpec.rank.toString()
+    } : null,
+    gpu: gpuSpec ? {
+      name: gpuSpec.name,
+      score: gpuSpec.score.toString(),
+      rank: gpuSpec.rank.toString()
+    } : null
+  };
 } 

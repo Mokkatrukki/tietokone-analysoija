@@ -1,43 +1,39 @@
 import { Database } from 'sqlite3';
 import { ToriListing } from '../types/ToriListing';
-import { createCpuTable, insertCpuSpec } from '../db/cpu-specs';
-import { createGpuTables, insertGpuSpec, linkCpuToGpu } from '../db/gpu-specs';
+import { HardwareSpecsDB } from '../db/hardware-specs';
 import { analyzeListing } from '../listing-analyzer';
 
 describe('Listing Analyzer', () => {
-  let db: Database;
+  let db: HardwareSpecsDB;
 
   beforeEach(async () => {
     // Create a new in-memory database for each test
-    db = new Database(':memory:');
-    
-    // Create tables
-    await createCpuTable(db);
-    await createGpuTables(db);
+    db = HardwareSpecsDB.getInstance(true);
 
     // Insert CPU data
-    await insertCpuSpec(db, {
+    await db.upsertCpuSpec({
       name: 'Intel Core i5-8250U @ 1.60GHz',
       score: '5845',
       rank: '1807'
     });
 
     // Insert GPU data
-    await insertGpuSpec(db, {
+    await db.upsertGpuSpec({
       name: 'Intel UHD Graphics 620',
       score: '1043',
       rank: '1163'
     });
 
     // Link CPU to integrated GPU
-    await linkCpuToGpu(db, {
+    await db.upsertCpuGpuMapping({
       cpu_name: 'Core i5-8250U',
       integrated_gpu_name: 'Intel UHD Graphics 620'
     });
   });
 
-  afterEach((done) => {
-    db.close(done);
+  afterEach(async () => {
+    await db.close();
+    (HardwareSpecsDB['instance'] as any) = null; // Reset singleton for next test
   });
 
   it('should analyze ThinkPad T480 listing and find CPU and integrated GPU', async () => {
