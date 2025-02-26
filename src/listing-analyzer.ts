@@ -1,6 +1,9 @@
 import { Database } from 'sqlite3';
 import { ToriListing } from './types/ToriListing';
 import { HardwareSpecsDB } from './db/hardware-specs';
+import { extractGpu } from './utils/gpuExtractor';
+import { extractProcessor } from './utils/processorExtractor';
+import { isLaptopListing } from './utils/categoryUtils';
 
 interface AnalysisResult {
   cpu: {
@@ -15,62 +18,18 @@ interface AnalysisResult {
   } | null;
 }
 
-function extractCpuModel(text: string): string | null {
-  // Common Intel CPU patterns
-  const intelPatterns = [
-    /i\d[\s-]+\d{4,}[A-Z]?[A-Z]?/i,  // i5-8250U, i7-1165G7
-    /i\d[\s-]+\d{3}[A-Z]?[A-Z]?/i,   // i5-750, i7-860
-  ];
-
-  // Common AMD CPU patterns
-  const amdPatterns = [
-    /Ryzen\s+\d[\s-]+\d{4}[A-Z]?[A-Z]?/i,  // Ryzen 5 5600X, Ryzen 7 3700X
-    /Ryzen\s+\d[\s-]+PRO\s+\d{4}[A-Z]?[A-Z]?/i  // Ryzen 5 PRO 4650U
-  ];
-
-  const patterns = [...intelPatterns, ...amdPatterns];
-
-  for (const pattern of patterns) {
-    const match = text.match(pattern);
-    if (match) {
-      return match[0].trim();
-    }
-  }
-
-  return null;
-}
-
-function extractGpuModel(text: string): string | null {
-  // Common discrete GPU patterns
-  const patterns = [
-    /GeForce[\s-]+(GTX|RTX)?[\s-]*\d{3,4}[\s-]*(Ti|Super)?/i,  // GeForce RTX 3080, GTX 1660 Ti
-    /Radeon[\s-]+(RX|HD)?[\s-]*\d{3,4}[\s-]*(XT|M)?/i,  // Radeon RX 6800 XT
-    /Intel[\s-]+(HD|UHD|Iris)[\s-]*Graphics[\s-]*\d*/i,  // Intel UHD Graphics 620
-    /Intel[\s-]+Arc[\s-]*[A-Z]\d+/i  // Intel Arc A770
-  ];
-
-  for (const pattern of patterns) {
-    const match = text.match(pattern);
-    if (match) {
-      return match[0].trim();
-    }
-  }
-
-  return null;
-}
-
 export async function analyzeListing(db: HardwareSpecsDB, listing: ToriListing): Promise<AnalysisResult | null> {
   console.log(`Analyzing listing: ${listing.title}`);
 
   // Check if this is a laptop listing
-  if (!listing.categories?.full.toLowerCase().includes('kannettavat')) {
+  if (!isLaptopListing(listing)) {
     console.log('Not a laptop listing, skipping');
     return null;
   }
 
   // Extract CPU model from title and description
-  const cpuFromDescription = extractCpuModel(listing.description);
-  const cpuFromTitle = extractCpuModel(listing.title);
+  const cpuFromDescription = extractProcessor(listing.description);
+  const cpuFromTitle = extractProcessor(listing.title);
 
   console.log('Found CPU:', { fromDescription: cpuFromDescription, fromTitle: cpuFromTitle });
 
@@ -89,8 +48,8 @@ export async function analyzeListing(db: HardwareSpecsDB, listing: ToriListing):
   }
 
   // Extract GPU model from title and description
-  const gpuFromDescription = extractGpuModel(listing.description);
-  const gpuFromTitle = extractGpuModel(listing.title);
+  const gpuFromDescription = extractGpu(listing.description);
+  const gpuFromTitle = extractGpu(listing.title);
 
   console.log('Found GPU:', { fromDescription: gpuFromDescription, fromTitle: gpuFromTitle });
 
