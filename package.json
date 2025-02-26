@@ -7,7 +7,8 @@
     "start": "nodemon",
     "build": "tsc",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "import:hardware": "ts-node src/scripts/import-hardware-specs.ts"
   },
   "dependencies": {
     "@nestjs/swagger": "^11.0.5",
