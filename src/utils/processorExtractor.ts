@@ -2,8 +2,8 @@ export function extractProcessor(description: string): string | null {
   // Try to match Intel formats: i5-2540M and i5 2540M
   const intelRegex = /i[3579][\s-]\d{4,5}[A-Z]?U?/i;
   
-  // Try to match AMD Ryzen format: Ryzen 5 3600, Ryzen 7 5800X
-  const ryzenRegex = /Ryzen\s[3579]\s\d{4}[A-Z]?/i;
+  // Try to match AMD Ryzen format: Ryzen 3 Pro 4450U, Ryzen 5 3600, Ryzen 7 5800X
+  const ryzenRegex = /Ryzen\s[3579](?:\sPro)?\s\d{4}[A-Z]?U?/i;
   
   // Try to match AMD EPYC format: EPYC 7763, EPYC 9654
   const epycRegex = /EPYC\s\d{4}/i;

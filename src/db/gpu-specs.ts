@@ -103,11 +103,30 @@ export function getIntegratedGpuForCpu(db: Database, cpuName: string): Promise<s
 export function searchGpuSpecs(db: Database, searchTerm: string): Promise<GpuSpec | null> {
   return new Promise((resolve, reject) => {
     const words = searchTerm.split(' ').filter(word => word.length > 0);
-    const conditions = words.map(() => 'name LIKE ?').join(' AND ');
-    const params = words.map(word => `%${word}%`);
+    
+    // Create conditions that handle numbers differently
+    const conditions = words.map(word => {
+      // If the word is a number or ends with a number, use exact matching
+      if (/\d+$/.test(word)) {
+        // Match exact number boundaries with word boundaries
+        return '(name LIKE ? OR name LIKE ? OR name = ?)';
+      }
+      return 'name LIKE ?';
+    }).join(' AND ');
 
+    // Create parameters, tripling them for number words
+    const params = words.flatMap(word => {
+      if (/\d+$/.test(word)) {
+        // Add word boundaries around numbers
+        return [`% ${word} %`, `% ${word}`, `${word}`];
+      }
+      return [`%${word}%`];
+    });
+
+    const query = `SELECT * FROM gpu_specs WHERE ${conditions} ORDER BY LENGTH(name) ASC LIMIT 1`;
+    
     db.get(
-      `SELECT * FROM gpu_specs WHERE ${conditions} ORDER BY LENGTH(name) ASC LIMIT 1`,
+      query,
       params,
       (err, row: GpuSpec | undefined) => {
         if (err) reject(err);

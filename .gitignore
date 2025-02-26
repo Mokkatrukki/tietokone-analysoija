@@ -28,6 +28,7 @@ cpu-specs.db
 cpu-specs.json
 gpu-specs.json
 intel-cpu-gpu.json
+hardware-specs.db
 
 # Listings data files
 listings.db

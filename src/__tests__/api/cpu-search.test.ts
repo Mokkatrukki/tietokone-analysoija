@@ -56,12 +56,22 @@ describe('CPU Information Extraction', () => {
       const description = "Kannettava tietokone myytävänä. Hyvä kunto.";
       expect(extractProcessor(description)).toBeNull();
     });
+
+    it('should extract first processor (i5-3320M) when multiple processors are mentioned', () => {
+      const description = "Hyväkuntoinen t430 thinkapdi.  -Speksit: 1-128gb sata ssd ja 500gb hdd-i5 3320M-16gb ramia. -Asennettuna windows 10, jonka rinnalla parrot os. (voin asentaa tarvittaessa win 11 tms.) -Prosessorin voi päivittää tehokkaammaksi, i7 3720qm tms.  -Myös coreboot onnistuu.  -Erittäin pätevä laitos vaikkapa internetin selailuun, laadukas näppis ja kirjotustuntuma. -Akku vaihdettu, tilalle laitettu laadukas greencellin akku.  Postitus onnistuu, mutta etusijalla nouto.";
+      expect(extractProcessor(description)).toBe('i5-3320M');
+    });
   });
 
   describe('Description CPU Extraction - AMD', () => {
     it('should extract Ryzen 5 3600 from desktop listing', () => {
       const description = "Myydään tehokas pelitietokone AMD Ryzen 5 3600 prosessorilla. 16GB RAM, RTX 3060.";
       expect(extractProcessor(description)).toBe('Ryzen 5 3600');
+    });
+
+    it('should extract Ryzen 3 Pro 4450U from ThinkPad X13 listing', () => {
+      const description = "KuvausYrityskäytöstä poistettu siisti läppäri.\nTekniset Tiedot\nTietokoneen malli : Lenovo ThinkPad X13\nSuoritin : AMD Ryzen 3 Pro 4450U (2.50 GHz) 4-ydin\nMuisti (RAM) : 8 GB DDR4 soldered – ei lisättävissä\nKiintolevy : 256 GB M.2 SSD\nNäytön koko : 13.3″ FHD-IPS\nResoluutio : 1920 x 1080p\nNäytönohjain : AMD Radeon Graphics\nTaustavalaistu näppäimistö : Kyllä\nKäyttöjärjestelmä : Windows 11 Pro\nUSB-portit : 2x USB-C, 2x USB 3.1 Gen 1, USB-C-docking\nWeb Kamera : Kyllä\nHDMI : Kyllä\nKuntoluokka : Käytetty A2\nSC-Kortin lukija : Kyllä\nAkun kesto (arvioitu) : 6 t\nAsennetut ohjelmat : LibreOffice, Google Chrome, Mozilla Firefox, Skype, Zoom, VLC Media Player, Foxit PDF Reader\nTakuu : 12 kuukautta";
+      expect(extractProcessor(description)).toBe('Ryzen 3 Pro 4450U');
     });
 
     it('should extract Ryzen 7 5800X from gaming PC listing', () => {

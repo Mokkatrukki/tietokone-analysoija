@@ -16,7 +16,8 @@ describe('GPU Specs Search', () => {
       { name: 'Intel Iris 5100', score: '740', rank: '1385' },
       { name: 'Radeon Vega 6 Ryzen 3 3350U', score: '1541', rank: '975' },
       { name: 'Radeon Vega 6 Ryzen 3 PRO 3300U w/', score: '1364', rank: '1034' },
-      { name: 'Radeon Vega 6', score: '1308', rank: '1048' }
+      { name: 'Radeon Vega 6', score: '1308', rank: '1048' },
+      { name: 'Radeon RX Vega 56', score: '13155', rank: '154' }
     ];
 
     // Insert test data
@@ -69,6 +70,11 @@ describe('GPU Specs Search', () => {
 
   it('should return null for unknown GPU', async () => {
     const result = await searchGpuSpecs(db, 'Unknown GPU Model');
+    expect(result).toBeNull();
+  });
+
+  it('should return null for non-existent Radeon RX Vega 5', async () => {
+    const result = await searchGpuSpecs(db, 'Radeon RX Vega 5');
     expect(result).toBeNull();
   });
 }); 
