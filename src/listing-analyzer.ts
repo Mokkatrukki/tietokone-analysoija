@@ -18,7 +18,7 @@ interface AnalysisResult {
   } | null;
 }
 
-export async function analyzeListing(db: HardwareSpecsDB, listing: ToriListing): Promise<AnalysisResult | null> {
+export function analyzeListing(db: HardwareSpecsDB, listing: ToriListing): AnalysisResult | null {
   console.log(`Analyzing listing: ${listing.title}`);
 
   // Check if this is a laptop listing
@@ -27,9 +27,12 @@ export async function analyzeListing(db: HardwareSpecsDB, listing: ToriListing):
     return null;
   }
 
+  console.log('Listing:', listing);
   // Extract CPU model from title and description
   const cpuFromDescription = extractProcessor(listing.description);
   const cpuFromTitle = extractProcessor(listing.title);
+  console.log('CPU from description:', cpuFromDescription);
+  console.log('CPU from title:', cpuFromTitle);
 
   console.log('Found CPU:', { fromDescription: cpuFromDescription, fromTitle: cpuFromTitle });
 
@@ -40,7 +43,7 @@ export async function analyzeListing(db: HardwareSpecsDB, listing: ToriListing):
     return null;
   }
 
-  const cpuSpec = await db.searchCpuSpecs(cpuModel);
+  const cpuSpec = db.searchCpuSpecs(cpuModel);
   console.log('CPU database search result:', cpuSpec);
 
   if (!cpuSpec) {
@@ -58,15 +61,15 @@ export async function analyzeListing(db: HardwareSpecsDB, listing: ToriListing):
   const gpuModel = gpuFromDescription || gpuFromTitle;
 
   if (gpuModel) {
-    gpuSpec = await db.searchGpuSpecs(gpuModel);
+    gpuSpec = db.searchGpuSpecs(gpuModel);
   } else {
     // If no discrete GPU found, try to find integrated GPU based on CPU
     console.log('Looking for integrated GPU for CPU:', cpuModel);
-    const integratedGpuName = await db.getIntegratedGpuForCpu(cpuModel);
+    const integratedGpuName = db.getIntegratedGpuForCpu(cpuModel);
     
     if (integratedGpuName) {
       console.log('Found integrated GPU:', integratedGpuName);
-      gpuSpec = await db.searchGpuSpecs(integratedGpuName);
+      gpuSpec = db.searchGpuSpecs(integratedGpuName);
     }
   }
 

@@ -1,37 +1,17 @@
-import { Database } from 'sqlite3';
 import { ToriListing } from '../types/ToriListing';
 import { HardwareSpecsDB } from '../db/hardware-specs';
 import { analyzeListing } from '../listing-analyzer';
+import { setupTestDatabase, cleanupTestDatabase } from './test-utils/test-db-setup';
 
 describe('Listing Analyzer', () => {
   let db: HardwareSpecsDB;
 
   beforeEach(() => {
-    // Initialize test database
-    db = HardwareSpecsDB.getInstance(true);
-
-    // First insert CPU specs
-    const cpuSpecs = [
-      { name: 'Intel Core i5-8250U @ 1.60GHz', score: '5845', rank: '1807' }
-    ];
-    cpuSpecs.forEach(spec => db.upsertCpuSpec(spec));
-
-    // Then insert GPU specs
-    const gpuSpecs = [
-      { name: 'Intel UHD Graphics 620', score: '1043', rank: '1163' }
-    ];
-    gpuSpecs.forEach(spec => db.upsertGpuSpec(spec));
-
-    // Finally insert CPU-GPU mappings
-    const mappings = [
-      { cpu_name: 'Intel Core i5-8250U @ 1.60GHz', gpu_name: 'Intel UHD Graphics 620' }
-    ];
-    mappings.forEach(mapping => db.upsertCpuGpuMapping(mapping));
+    db = setupTestDatabase();
   });
 
   afterEach(() => {
-    db.close();
-    (HardwareSpecsDB['instance'] as any) = null;
+    cleanupTestDatabase(db);
   });
 
   it('should analyze ThinkPad T480 listing and find CPU and integrated GPU', () => {
@@ -43,11 +23,16 @@ describe('Listing Analyzer', () => {
       price: 500,
       type: 'myydään',
       categories: {
-        full: 'Electronics > Computers > Laptops',
-        levels: ['Electronics', 'Computers', 'Laptops'],
-        primary: 'Electronics',
-        secondary: 'Computers',
-        tertiary: 'Laptops'
+        full: "Tori / Elektroniikka ja kodinkoneet / Tietotekniikka / Kannettavat tietokoneet",
+        levels: [
+          "Tori",
+          "Elektroniikka ja kodinkoneet",
+          "Tietotekniikka",
+          "Kannettavat tietokoneet"
+        ],
+        primary: "Elektroniikka ja kodinkoneet",
+        secondary: "Tietotekniikka",
+        tertiary: "Kannettavat tietokoneet"
       },
       additionalInfo: {},
       address: 'Test City',
@@ -57,7 +42,7 @@ describe('Listing Analyzer', () => {
     const result = analyzeListing(db, listing);
     expect(result).toEqual({
       cpu: {
-        name: 'Intel Core i5-8250U @ 1.60GHz',
+        name: 'Core i5-8250U',
         score: '5845',
         rank: '1807'
       },
