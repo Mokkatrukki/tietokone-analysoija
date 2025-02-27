@@ -1,5 +1,4 @@
-import sqlite3 from 'sqlite3';
-import { Database } from 'sqlite3';
+import Database from 'better-sqlite3';
 import path from 'path';
 
 // Types for our listing data
@@ -68,13 +67,13 @@ interface DbRow {
 
 // Database setup class
 export class ListingsDB {
-    private db: Database;
+    private db: Database.Database;
     private static instance: ListingsDB;
 
     private constructor(useMemory = false) {
         // Use in-memory database for testing, file database for production
         const dbPath = useMemory ? ':memory:' : path.join(process.cwd(), 'listings.db');
-        this.db = new sqlite3.Database(dbPath);
+        this.db = new Database(dbPath);
         this.initializeDatabase();
     }
 
@@ -87,193 +86,149 @@ export class ListingsDB {
     }
 
     private initializeDatabase(): void {
-        this.db.serialize(() => {
-            // Create the main listings table
-            this.db.run(`
-                CREATE TABLE IF NOT EXISTS listings (
-                    id TEXT PRIMARY KEY,
-                    url TEXT NOT NULL,
-                    title TEXT NOT NULL,
-                    price INTEGER,
-                    type TEXT,
-                    description TEXT,
-                    address TEXT,
-                    seller_type TEXT,
-                    categories_full TEXT,
-                    categories_primary TEXT,
-                    categories_secondary TEXT,
-                    categories_tertiary TEXT,
-                    additional_info TEXT,  -- Stored as JSON
-                    categories_levels TEXT,  -- Stored as JSON array
-                    analyzed BOOLEAN DEFAULT FALSE,
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-                )
-            `);
+        this.db.exec(`
+            CREATE TABLE IF NOT EXISTS listings (
+                id TEXT PRIMARY KEY,
+                url TEXT NOT NULL,
+                title TEXT NOT NULL,
+                price INTEGER,
+                type TEXT,
+                description TEXT,
+                address TEXT,
+                seller_type TEXT,
+                categories_full TEXT,
+                categories_primary TEXT,
+                categories_secondary TEXT,
+                categories_tertiary TEXT,
+                additional_info TEXT,  -- Stored as JSON
+                categories_levels TEXT,  -- Stored as JSON array
+                analyzed BOOLEAN DEFAULT FALSE,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        `);
 
-            // Create table for CPU analysis
-            this.db.run(`
-                CREATE TABLE IF NOT EXISTS cpu_analysis (
-                    listing_id TEXT PRIMARY KEY,
-                    name TEXT,
-                    score INTEGER,
-                    rank INTEGER,
-                    FOREIGN KEY (listing_id) REFERENCES listings(id)
-                )
-            `);
+        // Create table for CPU analysis
+        this.db.exec(`
+            CREATE TABLE IF NOT EXISTS cpu_analysis (
+                listing_id TEXT PRIMARY KEY,
+                name TEXT,
+                score INTEGER,
+                rank INTEGER,
+                FOREIGN KEY (listing_id) REFERENCES listings(id)
+            )
+        `);
 
-            // Create table for GPU analysis
-            this.db.run(`
-                CREATE TABLE IF NOT EXISTS gpu_analysis (
-                    listing_id TEXT PRIMARY KEY,
-                    name TEXT,
-                    score INTEGER,
-                    rank INTEGER,
-                    FOREIGN KEY (listing_id) REFERENCES listings(id)
-                )
-            `);
+        // Create table for GPU analysis
+        this.db.exec(`
+            CREATE TABLE IF NOT EXISTS gpu_analysis (
+                listing_id TEXT PRIMARY KEY,
+                name TEXT,
+                score INTEGER,
+                rank INTEGER,
+                FOREIGN KEY (listing_id) REFERENCES listings(id)
+            )
+        `);
 
-            // Create indexes for better query performance
-            this.db.run('CREATE INDEX IF NOT EXISTS idx_listings_analyzed ON listings(analyzed)');
-            this.db.run('CREATE INDEX IF NOT EXISTS idx_listings_price ON listings(price)');
-            this.db.run('CREATE INDEX IF NOT EXISTS idx_listings_type ON listings(type)');
-        });
+        // Create indexes for better query performance
+        this.db.exec('CREATE INDEX IF NOT EXISTS idx_listings_analyzed ON listings(analyzed)');
+        this.db.exec('CREATE INDEX IF NOT EXISTS idx_listings_price ON listings(price)');
+        this.db.exec('CREATE INDEX IF NOT EXISTS idx_listings_type ON listings(type)');
     }
 
     // Method to insert or update a listing
-    public async upsertListing(listing: Listing): Promise<void> {
-        return new Promise((resolve, reject) => {
-            const stmt = this.db.prepare(`
-                INSERT OR REPLACE INTO listings (
-                    id, url, title, price, type, description, address, seller_type,
-                    categories_full, categories_primary, categories_secondary, categories_tertiary,
-                    additional_info, categories_levels, analyzed, updated_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
-            `);
+    public upsertListing(listing: Listing): void {
+        const stmt = this.db.prepare(`
+            INSERT OR REPLACE INTO listings (
+                id, url, title, price, type, description, address, seller_type,
+                categories_full, categories_primary, categories_secondary, categories_tertiary,
+                additional_info, categories_levels, analyzed, updated_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+        `);
 
-            stmt.run(
-                listing.id,
-                listing.url,
-                listing.title,
-                listing.price,
-                listing.type,
-                listing.description,
-                listing.address,
-                listing.sellerType,
-                listing.categories.full,
-                listing.categories.primary,
-                listing.categories.secondary,
-                listing.categories.tertiary,
-                JSON.stringify(listing.additionalInfo),
-                JSON.stringify(listing.categories.levels),
-                listing.analyzed ? 1 : 0,
-                (err: Error | null) => {
-                    if (err) reject(err);
-                    else resolve();
-                }
-            );
-
-            stmt.finalize();
-        });
+        stmt.run(
+            listing.id,
+            listing.url,
+            listing.title,
+            listing.price,
+            listing.type,
+            listing.description,
+            listing.address,
+            listing.sellerType,
+            listing.categories.full,
+            listing.categories.primary,
+            listing.categories.secondary,
+            listing.categories.tertiary,
+            JSON.stringify(listing.additionalInfo),
+            JSON.stringify(listing.categories.levels),
+            listing.analyzed ? 1 : 0
+        );
     }
 
     // Method to update analysis results
-    public async updateAnalysis(
+    public updateAnalysis(
         listingId: string,
         cpuAnalysis: CpuAnalysis | null,
         gpuAnalysis: GpuAnalysis | null
-    ): Promise<void> {
-        return new Promise((resolve, reject) => {
-            this.db.serialize(() => {
-                // Begin transaction
-                this.db.run('BEGIN TRANSACTION');
+    ): void {
+        const transaction = this.db.transaction(() => {
+            if (cpuAnalysis) {
+                const cpuStmt = this.db.prepare(`
+                    INSERT OR REPLACE INTO cpu_analysis (listing_id, name, score, rank)
+                    VALUES (?, ?, ?, ?)
+                `);
+                cpuStmt.run(listingId, cpuAnalysis.name, cpuAnalysis.score, cpuAnalysis.rank);
+            }
 
-                try {
-                    // Update CPU analysis if provided
-                    if (cpuAnalysis) {
-                        const cpuStmt = this.db.prepare(`
-                            INSERT OR REPLACE INTO cpu_analysis (listing_id, name, score, rank)
-                            VALUES (?, ?, ?, ?)
-                        `);
-                        cpuStmt.run(listingId, cpuAnalysis.name, cpuAnalysis.score, cpuAnalysis.rank);
-                        cpuStmt.finalize();
-                    }
+            if (gpuAnalysis) {
+                const gpuStmt = this.db.prepare(`
+                    INSERT OR REPLACE INTO gpu_analysis (listing_id, name, score, rank)
+                    VALUES (?, ?, ?, ?)
+                `);
+                gpuStmt.run(listingId, gpuAnalysis.name, gpuAnalysis.score, gpuAnalysis.rank);
+            }
 
-                    // Update GPU analysis if provided
-                    if (gpuAnalysis) {
-                        const gpuStmt = this.db.prepare(`
-                            INSERT OR REPLACE INTO gpu_analysis (listing_id, name, score, rank)
-                            VALUES (?, ?, ?, ?)
-                        `);
-                        gpuStmt.run(listingId, gpuAnalysis.name, gpuAnalysis.score, gpuAnalysis.rank);
-                        gpuStmt.finalize();
-                    }
-
-                    // Mark listing as analyzed
-                    this.db.run(
-                        'UPDATE listings SET analyzed = 1, updated_at = CURRENT_TIMESTAMP WHERE id = ?',
-                        listingId
-                    );
-
-                    // Commit transaction
-                    this.db.run('COMMIT', (err) => {
-                        if (err) reject(err);
-                        else resolve();
-                    });
-                } catch (error) {
-                    this.db.run('ROLLBACK');
-                    reject(error);
-                }
-            });
+            const updateStmt = this.db.prepare(
+                'UPDATE listings SET analyzed = 1, updated_at = CURRENT_TIMESTAMP WHERE id = ?'
+            );
+            updateStmt.run(listingId);
         });
+
+        transaction();
     }
 
     // Method to get unanalyzed listings
-    public async getUnanalyzedListings(): Promise<Listing[]> {
-        return new Promise((resolve, reject) => {
-            this.db.all(
-                'SELECT * FROM listings WHERE analyzed = 0',
-                (err, rows: DbRow[]) => {
-                    if (err) reject(err);
-                    else {
-                        const listings = rows.map(row => ({
-                            id: row.id,
-                            url: row.url,
-                            title: row.title,
-                            price: row.price,
-                            type: row.type,
-                            description: row.description,
-                            address: row.address,
-                            sellerType: row.seller_type,
-                            additionalInfo: JSON.parse(row.additional_info),
-                            categories: {
-                                full: row.categories_full,
-                                levels: JSON.parse(row.categories_levels),
-                                primary: row.categories_primary,
-                                secondary: row.categories_secondary,
-                                tertiary: row.categories_tertiary
-                            },
-                            analyzed: row.analyzed === 1,
-                            cpuAnalysis: null,
-                            gpuAnalysis: null,
-                            createdAt: row.created_at,
-                            updatedAt: row.updated_at
-                        }));
-                        resolve(listings);
-                    }
-                }
-            );
-        });
+    public getUnanalyzedListings(): Listing[] {
+        const rows = this.db.prepare('SELECT * FROM listings WHERE analyzed = 0').all() as DbRow[];
+        
+        return rows.map(row => ({
+            id: row.id,
+            url: row.url,
+            title: row.title,
+            price: row.price,
+            type: row.type,
+            description: row.description,
+            address: row.address,
+            sellerType: row.seller_type,
+            additionalInfo: JSON.parse(row.additional_info),
+            categories: {
+                full: row.categories_full,
+                levels: JSON.parse(row.categories_levels),
+                primary: row.categories_primary,
+                secondary: row.categories_secondary,
+                tertiary: row.categories_tertiary
+            },
+            analyzed: row.analyzed === 1,
+            cpuAnalysis: null,
+            gpuAnalysis: null,
+            createdAt: row.created_at,
+            updatedAt: row.updated_at
+        }));
     }
 
     // Close the database connection
-    public close(): Promise<void> {
-        return new Promise((resolve, reject) => {
-            this.db.close((err) => {
-                if (err) reject(err);
-                else resolve();
-            });
-        });
+    public close(): void {
+        this.db.close();
     }
 }
 

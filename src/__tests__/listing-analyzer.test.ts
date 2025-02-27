@@ -6,67 +6,55 @@ import { analyzeListing } from '../listing-analyzer';
 describe('Listing Analyzer', () => {
   let db: HardwareSpecsDB;
 
-  beforeEach(async () => {
-    // Create a new in-memory database for each test
+  beforeEach(() => {
+    // Initialize test database
     db = HardwareSpecsDB.getInstance(true);
 
-    // Insert CPU data
-    await db.upsertCpuSpec({
-      name: 'Intel Core i5-8250U @ 1.60GHz',
-      score: '5845',
-      rank: '1807'
-    });
+    // First insert CPU specs
+    const cpuSpecs = [
+      { name: 'Intel Core i5-8250U @ 1.60GHz', score: '5845', rank: '1807' }
+    ];
+    cpuSpecs.forEach(spec => db.upsertCpuSpec(spec));
 
-    // Insert GPU data
-    await db.upsertGpuSpec({
-      name: 'Intel UHD Graphics 620',
-      score: '1043',
-      rank: '1163'
-    });
+    // Then insert GPU specs
+    const gpuSpecs = [
+      { name: 'Intel UHD Graphics 620', score: '1043', rank: '1163' }
+    ];
+    gpuSpecs.forEach(spec => db.upsertGpuSpec(spec));
 
-    // Link CPU to integrated GPU
-    await db.upsertCpuGpuMapping({
-      cpu_name: 'Core i5-8250U',
-      integrated_gpu_name: 'Intel UHD Graphics 620'
-    });
+    // Finally insert CPU-GPU mappings
+    const mappings = [
+      { cpu_name: 'Intel Core i5-8250U @ 1.60GHz', gpu_name: 'Intel UHD Graphics 620' }
+    ];
+    mappings.forEach(mapping => db.upsertCpuGpuMapping(mapping));
   });
 
-  afterEach(async () => {
-    await db.close();
-    (HardwareSpecsDB['instance'] as any) = null; // Reset singleton for next test
+  afterEach(() => {
+    db.close();
+    (HardwareSpecsDB['instance'] as any) = null;
   });
 
-  it('should analyze ThinkPad T480 listing and find CPU and integrated GPU', async () => {
+  it('should analyze ThinkPad T480 listing and find CPU and integrated GPU', () => {
     const listing: ToriListing = {
-      id: "6351114",
-      url: "https://www.tori.fi/recommerce/forsale/item/6351114",
-      title: "ThinkPad T480",
+      id: 'test123',
+      url: 'https://test.com/test123',
+      title: 'ThinkPad T480',
+      description: 'Lenovo ThinkPad T480 kannettava tietokone. Intel Core i5-8250U prosessori, 16GB RAM, 512GB SSD.',
+      price: 500,
+      type: 'myydään',
       categories: {
-        full: "Tori / Elektroniikka ja kodinkoneet / Tietotekniikka / Kannettavat tietokoneet",
-        levels: [
-          "Tori",
-          "Elektroniikka ja kodinkoneet",
-          "Tietotekniikka",
-          "Kannettavat tietokoneet"
-        ],
-        primary: "Elektroniikka ja kodinkoneet",
-        secondary: "Tietotekniikka",
-        tertiary: "Kannettavat tietokoneet"
+        full: 'Electronics > Computers > Laptops',
+        levels: ['Electronics', 'Computers', 'Laptops'],
+        primary: 'Electronics',
+        secondary: 'Computers',
+        tertiary: 'Laptops'
       },
-      price: 240,
-      type: "myydään",
-      description: "Prosessori intel i5 8250U muisti 16 Gb kiintolevy 256 Gb Näyttö 14\" 1920×1080 tehoakku,runko on lasikuituvahvistettua kierrätysmuovia,tehoakku,erittäin siisti kone.Win 11 Pro",
-      additionalInfo: {
-        Kunto: "Kuin uusi",
-        Merkki: "Lenovo"
-      },
-      address: "20500, Turku, Vesilinna, Varsinais-Suomi",
-      sellerType: "yksityinen",
-      errors: []
+      additionalInfo: {},
+      address: 'Test City',
+      sellerType: 'yksityinen'
     };
 
-    const result = await analyzeListing(db, listing);
-    
+    const result = analyzeListing(db, listing);
     expect(result).toEqual({
       cpu: {
         name: 'Intel Core i5-8250U @ 1.60GHz',
