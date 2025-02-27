@@ -1,5 +1,5 @@
 import { Database } from 'sqlite3';
-import { HardwareSpecsDB } from '../../db/hardware-specs';
+import { HardwareSpecsDB } from '../../../db/hardware-specs';
 
 describe('CPU Specs Search', () => {
   let db: HardwareSpecsDB;
