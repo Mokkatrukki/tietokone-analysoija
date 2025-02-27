@@ -1,4 +1,4 @@
-import { hardwareSpecsDb, CpuSpec, GpuSpec, CpuGpuMapping } from '../db/hardware-specs';
+import { HardwareSpecsDB, CpuSpec, GpuSpec, CpuGpuMapping, normalizeCpuName } from '../db/hardware-specs';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -23,7 +23,7 @@ interface IntelMapping {
 /**
  * Import CPU specs from JSON file into hardware-specs database
  */
-async function importCpuSpecs(): Promise<void> {
+function importCpuSpecs(db: HardwareSpecsDB): void {
     try {
         const jsonPath = path.join(__dirname, '../../cpu-specs.json');
         const cpuSpecs = JSON.parse(fs.readFileSync(jsonPath, 'utf-8')) as CpuData[];
@@ -31,11 +31,11 @@ async function importCpuSpecs(): Promise<void> {
         console.log('Importing CPU specs...');
         for (const spec of cpuSpecs) {
             const cpuSpec: CpuSpec = {
-                name: spec.name,
+                name: normalizeCpuName(spec.name),
                 score: parseInt(spec.cpu_mark.replace(',', '')),
                 rank: parseInt(spec.rank)
             };
-            await hardwareSpecsDb.upsertCpuSpec(cpuSpec);
+            db.upsertCpuSpec(cpuSpec);
         }
         console.log('CPU specs imported successfully!');
     } catch (error) {
@@ -47,7 +47,7 @@ async function importCpuSpecs(): Promise<void> {
 /**
  * Import GPU specs from JSON file into hardware-specs database
  */
-async function importGpuSpecs(): Promise<void> {
+function importGpuSpecs(db: HardwareSpecsDB): void {
     try {
         const jsonPath = path.join(__dirname, '../../gpu-specs.json');
         const gpuSpecs = JSON.parse(fs.readFileSync(jsonPath, 'utf-8')) as GpuData[];
@@ -59,7 +59,7 @@ async function importGpuSpecs(): Promise<void> {
                 score: parseInt(spec.score),
                 rank: parseInt(spec.rank)
             };
-            await hardwareSpecsDb.upsertGpuSpec(gpuSpec);
+            db.upsertGpuSpec(gpuSpec);
         }
         console.log('GPU specs imported successfully!');
     } catch (error) {
@@ -69,49 +69,63 @@ async function importGpuSpecs(): Promise<void> {
 }
 
 /**
- * Import CPU-GPU mappings from both mapping files:
- * 1. cpu-gpu-mappings.json - Direct mappings
- * 2. intel-cpu-gpu.json - Intel processor to integrated GPU mappings
+ * Import CPU-GPU mappings from intel-cpu-gpu.json - Intel processor to integrated GPU mappings
  */
-async function importCpuGpuMappings(): Promise<void> {
+function importCpuGpuMappings(db: HardwareSpecsDB): void {
     try {
-        // Import direct mappings if they exist
-        try {
-            const mappingPath = path.join(__dirname, '../../cpu-gpu-mappings.json');
-            const mappings = JSON.parse(fs.readFileSync(mappingPath, 'utf-8')) as CpuGpuMapping[];
-            
-            console.log('Importing CPU-GPU mappings...');
-            for (const mapping of mappings) {
-                await hardwareSpecsDb.upsertCpuGpuMapping({
-                    cpu_name: mapping.cpu_name,
-                    integrated_gpu_name: mapping.integrated_gpu_name
-                });
-            }
-            console.log('CPU-GPU mappings imported successfully!');
-        } catch (error) {
-            console.log('No CPU-GPU mappings file found or error importing mappings');
+        const intelPath = path.join(__dirname, '../../intel-cpu-gpu.json');
+        if (!fs.existsSync(intelPath)) {
+            console.log('Intel mappings file not found at:', intelPath);
+            return;
         }
 
-        // Import Intel mappings
-        try {
-            const intelPath = path.join(__dirname, '../../intel-cpu-gpu.json');
-            const intelMappings = JSON.parse(fs.readFileSync(intelPath, 'utf-8')) as IntelMapping[];
-            
-            console.log('Importing Intel CPU-GPU mappings...');
-            for (const mapping of intelMappings) {
-                for (const processor of mapping.processor) {
-                    await hardwareSpecsDb.upsertCpuGpuMapping({
-                        cpu_name: processor,
-                        integrated_gpu_name: mapping.gpu
+        const intelMappings = JSON.parse(fs.readFileSync(intelPath, 'utf-8')) as IntelMapping[];
+        
+        console.log('Importing Intel CPU-GPU mappings...');
+        const missingCpus = new Set<string>();
+        const missingGpus = new Set<string>();
+        let importedCount = 0;
+
+        for (const mapping of intelMappings) {
+            // Check if GPU exists and log if missing
+            const gpuSpec = db.searchGpuSpecs(mapping.gpu);
+            if (!gpuSpec) {
+                missingGpus.add(mapping.gpu);
+                continue; // Skip this mapping if GPU doesn't exist
+            }
+
+            for (const processor of mapping.processor) {
+                const normalizedCpuName = normalizeCpuName(processor);
+                // Check if CPU exists and log if missing
+                const cpuSpec = db.searchCpuSpecs(normalizedCpuName);
+                if (!cpuSpec) {
+                    missingCpus.add(processor);
+                    continue; // Skip this mapping if CPU doesn't exist
+                }
+
+                try {
+                    // Store the mapping with normalized CPU name and exact GPU name from database
+                    db.upsertCpuGpuMapping({
+                        cpu_name: normalizedCpuName,
+                        gpu_name: gpuSpec.name // Use exact GPU name from database
                     });
+                    importedCount++;
+                } catch (err) {
+                    console.error(`Failed to map CPU ${normalizedCpuName} to GPU ${gpuSpec.name}:`, err);
                 }
             }
-            console.log('Intel CPU-GPU mappings imported successfully!');
-        } catch (error) {
-            console.log('No Intel mappings file found or error importing mappings');
+        }
+
+        // Log summary
+        console.log(`Intel CPU-GPU mappings import completed: ${importedCount} mappings imported`);
+        if (missingCpus.size > 0) {
+            console.log('CPUs not found in database:', Array.from(missingCpus));
+        }
+        if (missingGpus.size > 0) {
+            console.log('GPUs not found in database:', Array.from(missingGpus));
         }
     } catch (error) {
-        console.error('Error importing CPU-GPU mappings:', error);
+        console.error('Error importing Intel mappings:', error);
         throw error;
     }
 }
@@ -123,16 +137,19 @@ async function importCpuGpuMappings(): Promise<void> {
  * 2. Import GPU specs as they are also referenced by mappings
  * 3. Import CPU-GPU mappings last as they depend on both CPU and GPU specs
  */
-async function importAllSpecs(): Promise<void> {
+function importAllSpecs(): void {
+    // Create a new database instance for the import
+    const db = HardwareSpecsDB.getInstance(false);
+    
     try {
-        await importCpuSpecs();
-        await importGpuSpecs();
-        await importCpuGpuMappings();
+        importCpuSpecs(db);
+        importGpuSpecs(db);
+        importCpuGpuMappings(db);
         console.log('All hardware specs imported successfully!');
     } catch (error) {
         console.error('Failed to import all specs:', error);
     } finally {
-        await hardwareSpecsDb.close();
+        db.close();
     }
 }
 

@@ -32,3 +32,6 @@ hardware-specs.db
 
 # Listings data files
 listings.db
+
+# Database files
+*.db
