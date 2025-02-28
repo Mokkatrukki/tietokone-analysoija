@@ -10,11 +10,20 @@ interface AnalysisResult {
     name: string;
     score: string;
     rank: string;
+    source: {
+      foundInDescription: boolean;
+      foundInTitle: boolean;
+    };
   } | null;
   gpu: {
     name: string;
     score: string;
     rank: string;
+    source: {
+      foundInTitle: boolean;
+      foundInDescription: boolean;
+      isIntegrated: boolean;
+    };
   } | null;
 }
 
@@ -50,6 +59,12 @@ export function analyzeListing(db: HardwareSpecsDB, listing: ToriListing): Analy
     return null;
   }
 
+  // Create CPU source info
+  const cpuSource = {
+    foundInDescription: cpuFromDescription !== null,
+    foundInTitle: cpuFromTitle !== null
+  };
+
   // Extract GPU model from title and description
   const gpuFromDescription = extractGpu(listing.description);
   const gpuFromTitle = extractGpu(listing.title);
@@ -58,10 +73,19 @@ export function analyzeListing(db: HardwareSpecsDB, listing: ToriListing): Analy
 
   // Search for GPU in database
   let gpuSpec = null;
+  let gpuSource = {
+    foundInTitle: false,
+    foundInDescription: false,
+    isIntegrated: false
+  };
+
   const gpuModel = gpuFromDescription || gpuFromTitle;
 
   if (gpuModel) {
     gpuSpec = db.searchGpuSpecs(gpuModel);
+    gpuSource.foundInTitle = gpuFromTitle !== null;
+    gpuSource.foundInDescription = gpuFromDescription !== null;
+    gpuSource.isIntegrated = gpuModel.toLowerCase().includes('with radeon graphics');
   } else {
     // If no discrete GPU found, try to find integrated GPU based on CPU
     console.log('Looking for integrated GPU for CPU:', cpuModel);
@@ -70,6 +94,10 @@ export function analyzeListing(db: HardwareSpecsDB, listing: ToriListing): Analy
     if (integratedGpuName) {
       console.log('Found integrated GPU:', integratedGpuName);
       gpuSpec = db.searchGpuSpecs(integratedGpuName);
+      gpuSource.isIntegrated = true;
+      // For integrated GPUs found via CPU, we mark it as found in the same place as the CPU
+      gpuSource.foundInTitle = cpuFromTitle !== null;
+      gpuSource.foundInDescription = cpuFromDescription !== null;
     }
   }
 
@@ -79,12 +107,14 @@ export function analyzeListing(db: HardwareSpecsDB, listing: ToriListing): Analy
     cpu: cpuSpec ? {
       name: cpuSpec.name,
       score: cpuSpec.score.toString(),
-      rank: cpuSpec.rank.toString()
+      rank: cpuSpec.rank.toString(),
+      source: cpuSource
     } : null,
     gpu: gpuSpec ? {
       name: gpuSpec.name,
       score: gpuSpec.score.toString(),
-      rank: gpuSpec.rank.toString()
+      rank: gpuSpec.rank.toString(),
+      source: gpuSource
     } : null
   };
 } 

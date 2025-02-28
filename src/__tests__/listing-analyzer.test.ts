@@ -44,12 +44,21 @@ describe('Listing Analyzer', () => {
       cpu: {
         name: 'Core i5-8250U',
         score: '5845',
-        rank: '1807'
+        rank: '1807',
+        source: {
+          foundInDescription: true,
+          foundInTitle: false
+        }
       },
       gpu: {
         name: 'Intel UHD Graphics 620',
         score: '1043',
-        rank: '1163'
+        rank: '1163',
+        source: {
+          foundInDescription: true,
+          foundInTitle: false,
+          isIntegrated: true,
+        }
       }
     });
   });
