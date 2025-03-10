@@ -37,6 +37,10 @@ The API will be available at `http://localhost:3000`
 
 Analyzes a Tori.fi listing by extracting and evaluating CPU and GPU specifications.
 
+#### CORS Support
+
+The API includes CORS support, allowing it to be accessed from web applications and Chrome extensions. By default, all origins are allowed.
+
 #### Request Body
 
 ```json
@@ -100,18 +104,55 @@ curl -X POST http://localhost:3000/api/listings \
   "success": true,
   "analysis": {
     "cpu": {
-      "name": "Intel i5-10300H",
-      "score": "8754",
-      "rank": "Mid-range"
+      "name": "Intel Core i7-10510U @ 1.80GHz",
+      "score": "6533",
+      "rank": "1674",
+      "source": {
+        "foundInDescription": false,
+        "foundInTitle": true
+      }
     },
     "gpu": {
-      "name": "NVIDIA GTX 1650",
-      "score": "6258",
-      "rank": "Entry Gaming"
+      "name": "Intel UHD Graphics 620",
+      "score": "1043",
+      "rank": "1163",
+      "source": {
+        "foundInTitle": true,
+        "foundInDescription": false,
+        "isIntegrated": true
+      }
+    },
+    "performance": {
+      "totalScore": 7576,
+      "cpuScore": 6533,
+      "gpuScore": 1043
+    },
+    "value": {
+      "priceEur": 599,
+      "totalPointsPerEuro": 12.65,
+      "cpuPointsPerEuro": 10.91,
+      "gpuPointsPerEuro": 1.74
     }
   }
 }
 ```
+
+#### Performance and Value Metrics
+
+The analysis now includes performance and value metrics:
+
+- **Performance**:
+  - `totalScore`: Combined CPU and GPU benchmark scores
+  - `cpuScore`: CPU benchmark score as a number
+  - `gpuScore`: GPU benchmark score as a number
+
+- **Value**:
+  - `priceEur`: Price in euros
+  - `totalPointsPerEuro`: Total performance points per euro (higher is better)
+  - `cpuPointsPerEuro`: CPU performance points per euro
+  - `gpuPointsPerEuro`: GPU performance points per euro
+
+These metrics help users compare different listings based on both raw performance and value for money.
 
 #### Error Response (400 Bad Request)
 
@@ -138,6 +179,34 @@ npm test
 ### API Documentation (Swagger)
 
 The API documentation is available at `http://localhost:3000/api-docs` when running the development server.
+
+### Chrome Extension Integration
+
+The API includes CORS headers that allow it to be accessed directly from a Chrome extension. When developing a Chrome extension that communicates with this API:
+
+1. Make sure to include the API's URL in your extension's permissions in the manifest.json file:
+```json
+"permissions": [
+  "http://localhost:3000/",
+  "https://your-production-api-url.com/"
+]
+```
+
+2. Use standard fetch or XMLHttpRequest to communicate with the API:
+```javascript
+fetch('http://localhost:3000/api/listings', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(listingData)
+})
+.then(response => response.json())
+.then(data => {
+  // Process the analysis results
+  console.log(data.analysis);
+});
+```
 
 ## License
 

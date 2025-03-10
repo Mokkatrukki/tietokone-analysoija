@@ -25,6 +25,17 @@ interface AnalysisResult {
       isIntegrated: boolean;
     };
   } | null;
+  performance: {
+    totalScore: number;
+    cpuScore: number | null;
+    gpuScore: number | null;
+  };
+  value: {
+    priceEur: number;
+    totalPointsPerEuro: number;
+    cpuPointsPerEuro: number | null;
+    gpuPointsPerEuro: number | null;
+  } | null;
 }
 
 export function analyzeListing(db: HardwareSpecsDB, listing: ToriListing): AnalysisResult | null {
@@ -103,6 +114,46 @@ export function analyzeListing(db: HardwareSpecsDB, listing: ToriListing): Analy
 
   console.log('Analysis complete:', { cpu: cpuSpec, gpu: gpuSpec });
 
+  // Calculate performance scores
+  const cpuScoreNum = cpuSpec ? parseInt(cpuSpec.score.toString()) : null;
+  const gpuScoreNum = gpuSpec ? parseInt(gpuSpec.score.toString()) : null;
+  
+  // Calculate total score - sum of CPU and GPU scores that are available
+  let totalScore = 0;
+  if (cpuScoreNum) totalScore += cpuScoreNum;
+  if (gpuScoreNum) totalScore += gpuScoreNum;
+
+  // Create performance object
+  const performance = {
+    totalScore: totalScore,
+    cpuScore: cpuScoreNum,
+    gpuScore: gpuScoreNum
+  };
+
+  // Calculate value metrics if price is available
+  let value = null;
+  if (listing.price) {
+    // Convert price to number if it's a string
+    const priceEur = typeof listing.price === 'string' 
+      ? parseFloat((listing.price as string).replace(/[^\d.,]/g, '').replace(',', '.')) 
+      : listing.price;
+    
+    // Only calculate if we have a valid number
+    if (!isNaN(priceEur) && priceEur > 0) {
+      // Calculate points per euro
+      const totalPointsPerEuro = parseFloat((totalScore / priceEur).toFixed(2));
+      const cpuPointsPerEuro = cpuScoreNum ? parseFloat((cpuScoreNum / priceEur).toFixed(2)) : null;
+      const gpuPointsPerEuro = gpuScoreNum ? parseFloat((gpuScoreNum / priceEur).toFixed(2)) : null;
+      
+      value = {
+        priceEur,
+        totalPointsPerEuro,
+        cpuPointsPerEuro,
+        gpuPointsPerEuro
+      };
+    }
+  }
+
   return {
     cpu: cpuSpec ? {
       name: cpuSpec.name,
@@ -115,6 +166,8 @@ export function analyzeListing(db: HardwareSpecsDB, listing: ToriListing): Analy
       score: gpuSpec.score.toString(),
       rank: gpuSpec.rank.toString(),
       source: gpuSource
-    } : null
+    } : null,
+    performance,
+    value
   };
 } 

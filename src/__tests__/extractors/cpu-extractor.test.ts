@@ -23,6 +23,11 @@ describe('CPU Information Extraction', () => {
       const title = "Acer Chromebook Plus 515 i3-12";
       expect(extractProcessor(title)).toBeNull();
     });
+
+    it('should extract Core i5-8250U from Intel Core i5@8250U format', () => {
+      const description = "Siistikuntoinen ja täysin toimiva.Pieniä käytönjälkiä löytyy mutta toimii kuin pitääkin. 12.5\" LENOVO THINPAD X280 Intel i5 Full HD 1920×1080 IPSUltrabook Business Laptop 256GB SSD| 8GB RAM| HDMI | 4G SIM WINDOWS 11 Pro Intel Core i5@8250U 1920×1080UHD Graphics 620 UHD IPS- 8GB RAM- 256GB SSD  - 1 × HDMI, 3 x USB 4G SIM CARDMore than 8hours battery life🔋 + Microsoft office + Adobe Reader";
+      expect(extractProcessor(description)).toBe('Core i5-8250U');
+    });
   });
 
   describe('Description CPU Extraction - Intel', () => {

@@ -17,6 +17,10 @@ export function extractGpu(description: string): string | null {
   const nvidiaGeforceRegex = /\b(?:nvidia\s+)?(?:GeForce\s+)?(?:RTX\s+(?:50(?:90|80|70)|40(?:90|80|70|60)|30(?:90|80|70|60)|20(?:80|70|60))(?:\s+(?:Ti|SUPER|D))?|GTX\s+(?:1080|1070|1650)(?:\s+Ti)?)\b/i;
   const nvidiaQuadroRegex = /\b(?:nvidia\s+)?quadro\s+(?:p|t|rtx|m)\d{3,4}(?:\s+(?:max-q))?\b/i;
 
+  // Intel integrated graphics - comprehensive pattern for all UHD Graphics variants
+  // This pattern allows for UHD Graphics to appear after a resolution without proper spacing
+  const intelUhdRegex = /(?:\b|\d)UHD\s*Graphics(?:\s+(?:P)?(?:6[0-3][0-9]|7[0-7][0-9]|[6-7][0-9][0-9]|[6-7][0-9]0|600|605|610|615|617|620))?\b/i;
+
   // 2. Repair patterns - try these if exact patterns don't match
   const radeonRepairRegex = /\b(?:rx\s*(\d{3,4})\s*(?:xt|xtx)?|rx(\d{3,4})(?:xt|xtx)?)\b/i;
   const nvidiaRepairRegex = /\b(?:rtx|gtx)\s*(\d{3,4})(?:\s*ti)?\b/i;
@@ -26,6 +30,7 @@ export function extractGpu(description: string): string | null {
                 description.match(radeonCompleteRegex) ||
                 description.match(nvidiaGeforceRegex) ||
                 description.match(nvidiaQuadroRegex) ||
+                description.match(intelUhdRegex) ||
                 description.match(radeonRepairRegex) ||
                 description.match(nvidiaRepairRegex);
 
@@ -38,6 +43,22 @@ export function extractGpu(description: string): string | null {
   // If it's AMD integrated graphics, return as is
   if (gpu.toLowerCase().includes('with radeon graphics')) {
     return gpu;
+  }
+
+  // If it's Intel UHD Graphics, format it properly
+  if (gpu.toLowerCase().includes('uhd graphics')) {
+    // Extract the model number if present
+    const modelMatch = gpu.match(/UHD\s*Graphics(?:\s+(P)?(\d{3}))?/i);
+    
+    if (modelMatch && modelMatch[2]) {
+      // If there's a model number, format it properly
+      const prefix = modelMatch[1] || '';
+      const modelNumber = modelMatch[2];
+      return `Intel UHD Graphics ${prefix}${modelNumber}`;
+    } else {
+      // If there's no model number, just return "Intel UHD Graphics"
+      return 'Intel UHD Graphics';
+    }
   }
 
   // If it's a NVIDIA GeForce GPU or standalone RTX/GTX, format it accordingly

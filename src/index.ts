@@ -5,9 +5,17 @@ import swaggerUi from 'swagger-ui-express';
 import { swaggerDefinition } from './swagger';
 import { analyzeListing } from './listing-analyzer';
 import { HardwareSpecsDB } from './db/hardware-specs';
+import cors from 'cors';
 
 export const app = express();
 const db = HardwareSpecsDB.getInstance();
+
+// Enable CORS for all routes
+app.use(cors({
+  origin: '*', // Allow all origins - you can restrict this to specific origins if needed
+  methods: ['GET', 'POST'], // Allow only specific methods
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 app.use(express.json());
 

@@ -108,14 +108,137 @@ export const swaggerDefinition: SwaggerOptions = {
             }
           }
         }
+      },
+      AnalysisResult: {
+        type: 'object',
+        properties: {
+          success: {
+            type: 'boolean',
+            description: 'Indicates if the analysis was successful'
+          },
+          analysis: {
+            type: 'object',
+            properties: {
+              cpu: {
+                type: 'object',
+                nullable: true,
+                properties: {
+                  name: {
+                    type: 'string',
+                    description: 'CPU model name'
+                  },
+                  score: {
+                    type: 'string',
+                    description: 'CPU benchmark score'
+                  },
+                  rank: {
+                    type: 'string',
+                    description: 'CPU rank in benchmark database'
+                  },
+                  source: {
+                    type: 'object',
+                    properties: {
+                      foundInDescription: {
+                        type: 'boolean',
+                        description: 'Whether CPU was found in listing description'
+                      },
+                      foundInTitle: {
+                        type: 'boolean',
+                        description: 'Whether CPU was found in listing title'
+                      }
+                    }
+                  }
+                }
+              },
+              gpu: {
+                type: 'object',
+                nullable: true,
+                properties: {
+                  name: {
+                    type: 'string',
+                    description: 'GPU model name'
+                  },
+                  score: {
+                    type: 'string',
+                    description: 'GPU benchmark score'
+                  },
+                  rank: {
+                    type: 'string',
+                    description: 'GPU rank in benchmark database'
+                  },
+                  source: {
+                    type: 'object',
+                    properties: {
+                      foundInDescription: {
+                        type: 'boolean',
+                        description: 'Whether GPU was found in listing description'
+                      },
+                      foundInTitle: {
+                        type: 'boolean',
+                        description: 'Whether GPU was found in listing title'
+                      },
+                      isIntegrated: {
+                        type: 'boolean',
+                        description: 'Whether GPU is integrated with CPU'
+                      }
+                    }
+                  }
+                }
+              },
+              performance: {
+                type: 'object',
+                properties: {
+                  totalScore: {
+                    type: 'number',
+                    description: 'Combined CPU and GPU benchmark score'
+                  },
+                  cpuScore: {
+                    type: 'number',
+                    nullable: true,
+                    description: 'CPU benchmark score as a number'
+                  },
+                  gpuScore: {
+                    type: 'number',
+                    nullable: true,
+                    description: 'GPU benchmark score as a number'
+                  }
+                }
+              },
+              value: {
+                type: 'object',
+                nullable: true,
+                properties: {
+                  priceEur: {
+                    type: 'number',
+                    description: 'Price in euros'
+                  },
+                  totalPointsPerEuro: {
+                    type: 'number',
+                    description: 'Total performance points per euro (value metric)'
+                  },
+                  cpuPointsPerEuro: {
+                    type: 'number',
+                    nullable: true,
+                    description: 'CPU performance points per euro'
+                  },
+                  gpuPointsPerEuro: {
+                    type: 'number',
+                    nullable: true,
+                    description: 'GPU performance points per euro'
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
   paths: {
     '/api/listings': {
       post: {
-        tags: ['Listings'],
-        summary: 'Submit a new Tori.fi listing for analysis',
+        summary: 'Analyze a Tori.fi listing',
+        description: 'Analyzes a Tori.fi listing by extracting and evaluating CPU and GPU specifications',
         requestBody: {
           required: true,
           content: {
@@ -128,30 +251,40 @@ export const swaggerDefinition: SwaggerOptions = {
         },
         responses: {
           '200': {
-            description: 'Listing successfully processed and analyzed',
+            description: 'Successful analysis',
             content: {
               'application/json': {
                 schema: {
-                  type: 'object',
-                  properties: {
-                    success: {
-                      type: 'boolean',
-                      example: true
-                    },
-                    analysis: {
-                      $ref: '#/components/schemas/AnalyzerResult'
-                    }
-                  }
+                  $ref: '#/components/schemas/AnalysisResult'
                 }
               }
             }
           },
           '400': {
-            description: 'Validation error',
+            description: 'Bad request',
             content: {
               'application/json': {
                 schema: {
-                  $ref: '#/components/schemas/Error'
+                  type: 'object',
+                  properties: {
+                    error: {
+                      type: 'string'
+                    },
+                    details: {
+                      type: 'array',
+                      items: {
+                        type: 'object',
+                        properties: {
+                          field: {
+                            type: 'string'
+                          },
+                          message: {
+                            type: 'string'
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }

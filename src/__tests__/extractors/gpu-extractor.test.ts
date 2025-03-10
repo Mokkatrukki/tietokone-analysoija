@@ -89,4 +89,11 @@ describe('GPU Information Extraction', () => {
       expect(extractGpu(description)).toBe('Ryzen 3 7330U with Radeon Graphics');
     });
   });
+
+  describe('Description GPU Extraction - Intel Integrated', () => {
+    it('should extract Intel UHD Graphics 620 from ThinkPad listing', () => {
+      const description = "Siistikuntoinen ja täysin toimiva.Pieniä käytönjälkiä löytyy mutta toimii kuin pitääkin. 12.5\" LENOVO THINPAD X280 Intel i5 Full HD 1920×1080 IPSUltrabook Business Laptop 256GB SSD| 8GB RAM| HDMI | 4G SIM WINDOWS 11 Pro Intel Core i5@8250U 1920×1080UHD Graphics 620 UHD IPS- 8GB RAM- 256GB SSD  - 1 × HDMI, 3 x USB 4G SIM CARDMore than 8hours battery life🔋 + Microsoft office + Adobe Reader";
+      expect(extractGpu(description)).toBe('Intel UHD Graphics 620');
+    });
+  });
 });
