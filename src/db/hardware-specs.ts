@@ -23,6 +23,19 @@ export interface CpuGpuMapping {
     gpu_name: string;
 }
 
+// Interface for ThinkPad model data
+export interface ThinkpadModel {
+    model: string;
+    windows11Compatible: boolean;
+    specs?: {
+        directXVersion?: string;
+        tpmVersion?: string;
+        secureBootSupport?: boolean;
+    };
+    created_at?: string;
+    updated_at?: string;
+}
+
 // Helper function to normalize CPU names
 export function normalizeCpuName(cpuName: string): string {
     // Remove "Intel " prefix if exists
@@ -93,10 +106,23 @@ export class HardwareSpecsDB {
             )
         `);
 
+        this.db.exec(`
+            CREATE TABLE IF NOT EXISTS thinkpad_models (
+                model TEXT PRIMARY KEY,
+                windows11_compatible INTEGER NOT NULL,
+                directx_version TEXT,
+                tpm_version TEXT,
+                secure_boot_support INTEGER,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        `);
+
         this.db.exec('CREATE INDEX IF NOT EXISTS idx_cpu_score ON cpu_specs(score)');
         this.db.exec('CREATE INDEX IF NOT EXISTS idx_cpu_rank ON cpu_specs(rank)');
         this.db.exec('CREATE INDEX IF NOT EXISTS idx_gpu_score ON gpu_specs(score)');
         this.db.exec('CREATE INDEX IF NOT EXISTS idx_gpu_rank ON gpu_specs(rank)');
+        this.db.exec('CREATE INDEX IF NOT EXISTS idx_thinkpad_win11 ON thinkpad_models(windows11_compatible)');
     }
 
     // Method to insert or update a CPU spec
@@ -125,6 +151,28 @@ export class HardwareSpecsDB {
             VALUES (?, ?)
         `);
         stmt.run(normalizedCpuName, mapping.gpu_name);
+    }
+
+    // Method to insert or update a ThinkPad model
+    public upsertThinkpadModel(model: ThinkpadModel): void {
+        const stmt = this.db.prepare(`
+            INSERT OR REPLACE INTO thinkpad_models (
+                model, 
+                windows11_compatible, 
+                directx_version, 
+                tpm_version, 
+                secure_boot_support
+            )
+            VALUES (?, ?, ?, ?, ?)
+        `);
+        
+        stmt.run(
+            model.model,
+            model.windows11Compatible ? 1 : 0,
+            model.specs?.directXVersion || null,
+            model.specs?.tpmVersion || null,
+            model.specs?.secureBootSupport ? 1 : 0
+        );
     }
 
     public searchCpuSpecs(searchTerm: string): CpuSpec | null {
@@ -181,6 +229,63 @@ export class HardwareSpecsDB {
         });
 
         importMany(specs);
+    }
+
+    // Method to search for a ThinkPad model
+    public searchThinkpadModel(model: string): ThinkpadModel | null {
+        const stmt = this.db.prepare(`
+            SELECT 
+                model, 
+                windows11_compatible, 
+                directx_version, 
+                tpm_version, 
+                secure_boot_support,
+                created_at,
+                updated_at
+            FROM thinkpad_models
+            WHERE model LIKE ?
+            LIMIT 1
+        `);
+        
+        const result = stmt.get(`%${model}%`) as any;
+        if (!result) return null;
+        
+        return {
+            model: result.model,
+            windows11Compatible: result.windows11_compatible === 1,
+            specs: {
+                directXVersion: result.directx_version,
+                tpmVersion: result.tpm_version,
+                secureBootSupport: result.secure_boot_support === 1
+            },
+            created_at: result.created_at,
+            updated_at: result.updated_at
+        };
+    }
+
+    // Method to get all ThinkPad models with Windows 11 compatibility
+    public getThinkpadModelsWithWin11Compatibility(compatible: boolean): ThinkpadModel[] {
+        const stmt = this.db.prepare(`
+            SELECT 
+                model, 
+                windows11_compatible, 
+                directx_version, 
+                tpm_version, 
+                secure_boot_support
+            FROM thinkpad_models
+            WHERE windows11_compatible = ?
+        `);
+        
+        const results = stmt.all(compatible ? 1 : 0) as any[];
+        return results.map(result => ({
+            model: result.model,
+            windows11Compatible: result.windows11_compatible === 1,
+            specs: {
+                directXVersion: result.directx_version,
+                tpmVersion: result.tpm_version,
+                secureBootSupport: result.secure_boot_support === 1
+            }
+        }));
     }
 
     // Close the database connection

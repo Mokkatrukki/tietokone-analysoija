@@ -391,4 +391,102 @@ describe('Listing Analyzer', () => {
       }
     });
   });
+
+  it('should detect ThinkPad model and CPU/GPU from description with Windows 11 compatibility', () => {
+    // Mock the database methods
+    const db = {
+      searchCpuSpecs: jest.fn().mockReturnValue({
+        name: 'Core i5-8250U',
+        score: '5845',
+        rank: '1807'
+      }),
+      searchGpuSpecs: jest.fn().mockReturnValue({
+        name: 'Intel UHD Graphics 620',
+        score: '1043',
+        rank: '1163'
+      }),
+      getIntegratedGpuForCpu: jest.fn().mockReturnValue('Intel UHD Graphics 620'),
+      searchThinkpadModel: jest.fn().mockReturnValue({
+        model: 'T480',
+        windows11Compatible: true,
+        specs: {
+          directXVersion: '12',
+          tpmVersion: '2.0',
+          secureBootSupport: true
+        }
+      })
+    };
+
+    const listing: ToriListing = {
+      id: 'test100',
+      url: 'https://test.com/test100',
+      title: 'Lenovo ThinkPad T480',
+      description: 'Lenovo ThinkPad T480 kannettava tietokone. Intel Core i5-8250U, 8GB RAM, 256GB SSD.',
+      price: 500,
+      type: 'myydään',
+      categories: {
+        full: 'Elektroniikka ja kodinkoneet > Tietotekniikka > Kannettavat tietokoneet',
+        levels: ['Elektroniikka ja kodinkoneet', 'Tietotekniikka', 'Kannettavat tietokoneet'],
+        primary: 'Elektroniikka ja kodinkoneet',
+        secondary: 'Tietotekniikka',
+        tertiary: 'Kannettavat tietokoneet'
+      }
+    };
+
+    const result = analyzeListing(db as any, listing);
+    expect(result).toEqual({
+      cpu: {
+        name: 'Core i5-8250U',
+        score: '5845',
+        rank: '1807',
+        source: {
+          foundInDescription: true,
+          foundInTitle: false,
+        },
+      },
+      gpu: {
+        name: 'Intel UHD Graphics 620',
+        score: '1043',
+        rank: '1163',
+        source: {
+          foundInDescription: true,
+          foundInTitle: false,
+          isIntegrated: true,
+        },
+      },
+      memory: {
+        sizeGB: 8,
+        source: {
+          foundInDescription: true,
+          foundInTitle: false,
+        },
+      },
+      screen: null,
+      os: null,
+      thinkpad: {
+        model: 'T480',
+        windows11Compatible: true,
+        specs: {
+          directXVersion: '12',
+          tpmVersion: '2.0',
+          secureBootSupport: true
+        },
+        source: {
+          foundInTitle: true,
+          foundInDescription: true
+        }
+      },
+      performance: {
+        totalScore: 6888,
+        cpuScore: 5845,
+        gpuScore: 1043,
+      },
+      value: {
+        priceEur: 500,
+        totalPointsPerEuro: 13.78,
+        cpuPointsPerEuro: 11.69,
+        gpuPointsPerEuro: 2.09,
+      },
+    });
+  });
 }); 

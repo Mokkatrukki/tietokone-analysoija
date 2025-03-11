@@ -1,4 +1,4 @@
-import { HardwareSpecsDB, CpuSpec, GpuSpec, CpuGpuMapping, normalizeCpuName } from '../db/hardware-specs';
+import { HardwareSpecsDB, CpuSpec, GpuSpec, CpuGpuMapping, ThinkpadModel, normalizeCpuName } from '../db/hardware-specs';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -131,11 +131,44 @@ function importCpuGpuMappings(db: HardwareSpecsDB): void {
 }
 
 /**
+ * Import ThinkPad Windows 11 compatibility data from JSON file
+ */
+function importThinkpadModels(db: HardwareSpecsDB): void {
+    try {
+        const jsonPath = path.join(__dirname, '../../thinkpad-windows11compatible.json');
+        if (!fs.existsSync(jsonPath)) {
+            console.log('ThinkPad compatibility file not found at:', jsonPath);
+            return;
+        }
+
+        const thinkpadModels = JSON.parse(fs.readFileSync(jsonPath, 'utf-8')) as ThinkpadModel[];
+        
+        console.log('Importing ThinkPad Windows 11 compatibility data...');
+        let importedCount = 0;
+
+        for (const model of thinkpadModels) {
+            try {
+                db.upsertThinkpadModel(model);
+                importedCount++;
+            } catch (err) {
+                console.error(`Failed to import ThinkPad model ${model.model}:`, err);
+            }
+        }
+
+        console.log(`ThinkPad models import completed: ${importedCount} models imported`);
+    } catch (error) {
+        console.error('Error importing ThinkPad models:', error);
+        throw error;
+    }
+}
+
+/**
  * Main function to import all hardware specs
  * Order of operations:
  * 1. Import CPU specs first as they are referenced by mappings
  * 2. Import GPU specs as they are also referenced by mappings
  * 3. Import CPU-GPU mappings last as they depend on both CPU and GPU specs
+ * 4. Import ThinkPad Windows 11 compatibility data
  */
 function importAllSpecs(): void {
     // Create a new database instance for the import
@@ -145,6 +178,7 @@ function importAllSpecs(): void {
         importCpuSpecs(db);
         importGpuSpecs(db);
         importCpuGpuMappings(db);
+        importThinkpadModels(db);
         console.log('All hardware specs imported successfully!');
     } catch (error) {
         console.error('Failed to import all specs:', error);

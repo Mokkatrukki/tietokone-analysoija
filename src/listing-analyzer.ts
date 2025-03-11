@@ -52,6 +52,12 @@ interface AnalysisResult {
   } | null;
   thinkpad: {
     model: string;
+    windows11Compatible?: boolean;
+    specs?: {
+      directXVersion?: string;
+      tpmVersion?: string;
+      secureBootSupport?: boolean;
+    };
     source: {
       foundInTitle: boolean;
       foundInDescription: boolean;
@@ -243,6 +249,15 @@ export function analyzeListing(db: HardwareSpecsDB, listing: ToriListing): Analy
     foundInDescription: !!thinkpadModelFromDescription
   };
 
+  // Get ThinkPad Windows 11 compatibility information if available
+  let thinkpadCompatibilityInfo = null;
+  if (thinkpadModel) {
+    // Search for the model in the database
+    // We need to extract just the model number without "GEN" suffix for database lookup
+    const modelForSearch = thinkpadModel.split(' GEN ')[0];
+    thinkpadCompatibilityInfo = db.searchThinkpadModel(modelForSearch);
+  }
+
   return {
     cpu: cpuSpec ? {
       name: cpuSpec.name,
@@ -268,7 +283,12 @@ export function analyzeListing(db: HardwareSpecsDB, listing: ToriListing): Analy
       name: osName,
       source: osSource
     } : null,
-    thinkpad: thinkpadModel ? { model: thinkpadModel, source: thinkpadSource } : null,
+    thinkpad: thinkpadModel ? {
+      model: thinkpadModel,
+      windows11Compatible: thinkpadCompatibilityInfo?.windows11Compatible,
+      specs: thinkpadCompatibilityInfo?.specs,
+      source: thinkpadSource
+    } : null,
     performance,
     value
   };
