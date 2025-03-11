@@ -29,6 +29,7 @@ cpu-specs.json
 gpu-specs.json
 intel-cpu-gpu.json
 hardware-specs.db
+thinkpad-windows11compatible.json
 
 # Listings data files
 listings.db

@@ -257,6 +257,7 @@ The API analyzes laptop listings from Tori.fi and provides the following informa
 - **Screen Type Analysis**: Identifies the screen type (TN, IPS, OLED) from the listing.
 - **Memory Size Analysis**: Extracts RAM size information from the listing.
 - **Operating System Detection**: Identifies the operating system (Windows, macOS, Linux) from the listing.
+- **ThinkPad Model Detection**: Identifies Lenovo ThinkPad models and their specific series/generation.
 - **Performance Metrics**: Provides benchmark scores for the identified hardware.
 - **Value Assessment**: Calculates a value rating based on performance and price.
 
@@ -269,5 +270,6 @@ The analysis result includes:
 - **Screen Type**: The type of screen (TN, IPS, OLED).
 - **Memory Size**: The amount of RAM in GB.
 - **Operating System**: The detected OS (Windows, macOS, Linux).
+- **ThinkPad Model**: The specific ThinkPad model if detected (e.g., T480, X1 Carbon Gen 6).
 - **Performance Metrics**: Combined and individual benchmark scores.
 - **Value Rating**: Assessment of the laptop's value for money. 

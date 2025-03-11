@@ -7,6 +7,7 @@ import { isLaptopListing } from './utils/categoryUtils';
 import { extractScreenType } from './utils/screenExtractor';
 import { extractMemory } from './utils/memoryExtractor';
 import { extractOs } from './utils/osExtractor';
+import { extractThinkpadModel } from './utils/thinkpadModelExtractor';
 
 interface AnalysisResult {
   cpu: {
@@ -44,6 +45,13 @@ interface AnalysisResult {
   } | null;
   os: {
     name: string;
+    source: {
+      foundInTitle: boolean;
+      foundInDescription: boolean;
+    };
+  } | null;
+  thinkpad: {
+    model: string;
     source: {
       foundInTitle: boolean;
       foundInDescription: boolean;
@@ -224,6 +232,17 @@ export function analyzeListing(db: HardwareSpecsDB, listing: ToriListing): Analy
     foundInDescription: !!osFromDescription
   };
 
+  // Extract ThinkPad model information
+  const thinkpadModelFromTitle = listing.title ? extractThinkpadModel(listing.title) : null;
+  const thinkpadModelFromDescription = extractThinkpadModel(listing.description);
+  const thinkpadModel = thinkpadModelFromTitle || thinkpadModelFromDescription;
+
+  // Create ThinkPad source information
+  const thinkpadSource = {
+    foundInTitle: !!thinkpadModelFromTitle,
+    foundInDescription: !!thinkpadModelFromDescription
+  };
+
   return {
     cpu: cpuSpec ? {
       name: cpuSpec.name,
@@ -249,6 +268,7 @@ export function analyzeListing(db: HardwareSpecsDB, listing: ToriListing): Analy
       name: osName,
       source: osSource
     } : null,
+    thinkpad: thinkpadModel ? { model: thinkpadModel, source: thinkpadSource } : null,
     performance,
     value
   };

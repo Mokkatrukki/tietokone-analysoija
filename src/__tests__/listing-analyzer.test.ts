@@ -81,6 +81,13 @@ describe('Listing Analyzer', () => {
           foundInDescription: true
         }
       },
+      thinkpad: {
+        model: 'T480',
+        source: {
+          foundInTitle: true,
+          foundInDescription: true
+        }
+      },
       performance: {
         totalScore: 6888,
         cpuScore: 5845,
@@ -151,6 +158,13 @@ describe('Listing Analyzer', () => {
         }
       },
       os: null,
+      thinkpad: {
+        model: 'T480',
+        source: {
+          foundInTitle: true,
+          foundInDescription: true
+        }
+      },
       performance: {
         totalScore: 5845,
         cpuScore: 5845,
@@ -209,6 +223,13 @@ describe('Listing Analyzer', () => {
       memory: null,
       screen: null,
       os: null,
+      thinkpad: {
+        model: 'T480',
+        source: {
+          foundInTitle: true,
+          foundInDescription: true
+        }
+      },
       performance: {
         totalScore: 6888,
         cpuScore: 5845,

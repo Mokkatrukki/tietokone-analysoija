@@ -123,10 +123,10 @@ export const swaggerDefinition: SwaggerOptions = {
                 type: 'object',
                 properties: {
                   foundInDescription: { type: 'boolean' },
-                  foundInTitle: { type: 'boolean' },
-                },
-              },
-            },
+                  foundInTitle: { type: 'boolean' }
+                }
+              }
+            }
           },
           gpu: {
             type: 'object',
@@ -138,12 +138,12 @@ export const swaggerDefinition: SwaggerOptions = {
               source: {
                 type: 'object',
                 properties: {
-                  foundInDescription: { type: 'boolean' },
                   foundInTitle: { type: 'boolean' },
-                  isIntegrated: { type: 'boolean' },
-                },
-              },
-            },
+                  foundInDescription: { type: 'boolean' },
+                  isIntegrated: { type: 'boolean' }
+                }
+              }
+            }
           },
           screen: {
             type: 'object',
@@ -153,11 +153,11 @@ export const swaggerDefinition: SwaggerOptions = {
               source: {
                 type: 'object',
                 properties: {
-                  foundInDescription: { type: 'boolean' },
                   foundInTitle: { type: 'boolean' },
-                },
-              },
-            },
+                  foundInDescription: { type: 'boolean' }
+                }
+              }
+            }
           },
           memory: {
             type: 'object',
@@ -167,11 +167,11 @@ export const swaggerDefinition: SwaggerOptions = {
               source: {
                 type: 'object',
                 properties: {
-                  foundInDescription: { type: 'boolean' },
                   foundInTitle: { type: 'boolean' },
-                },
-              },
-            },
+                  foundInDescription: { type: 'boolean' }
+                }
+              }
+            }
           },
           os: {
             type: 'object',
@@ -181,28 +181,44 @@ export const swaggerDefinition: SwaggerOptions = {
               source: {
                 type: 'object',
                 properties: {
-                  foundInDescription: { type: 'boolean' },
                   foundInTitle: { type: 'boolean' },
-                },
-              },
-            },
+                  foundInDescription: { type: 'boolean' }
+                }
+              }
+            }
+          },
+          thinkpad: {
+            type: 'object',
+            nullable: true,
+            properties: {
+              model: { type: 'string' },
+              source: {
+                type: 'object',
+                properties: {
+                  foundInTitle: { type: 'boolean' },
+                  foundInDescription: { type: 'boolean' }
+                }
+              }
+            }
           },
           performance: {
             type: 'object',
             properties: {
               totalScore: { type: 'number' },
-              cpuScore: { type: 'number' },
-              gpuScore: { type: 'number' },
-            },
+              cpuScore: { type: 'number', nullable: true },
+              gpuScore: { type: 'number', nullable: true }
+            }
           },
           value: {
             type: 'object',
             nullable: true,
             properties: {
-              rating: { type: 'number' },
-              explanation: { type: 'string' },
-            },
-          },
+              priceEur: { type: 'number' },
+              totalPointsPerEuro: { type: 'number' },
+              cpuPointsPerEuro: { type: 'number', nullable: true },
+              gpuPointsPerEuro: { type: 'number', nullable: true }
+            }
+          }
         }
       }
     }
