@@ -5,6 +5,7 @@ import { extractGpu } from './utils/gpuExtractor';
 import { extractProcessor } from './utils/processorExtractor';
 import { isLaptopListing } from './utils/categoryUtils';
 import { extractScreenType } from './utils/screenExtractor';
+import { extractMemory } from './utils/memoryExtractor';
 
 interface AnalysisResult {
   cpu: {
@@ -28,6 +29,13 @@ interface AnalysisResult {
   } | null;
   screen: {
     type: string;
+    source: {
+      foundInTitle: boolean;
+      foundInDescription: boolean;
+    };
+  } | null;
+  memory: {
+    sizeGB: number;
     source: {
       foundInTitle: boolean;
       foundInDescription: boolean;
@@ -180,10 +188,21 @@ export function analyzeListing(db: HardwareSpecsDB, listing: ToriListing): Analy
   const screenTypeFromDescription = extractScreenType(listing.description);
   const screenType = screenTypeFromTitle || screenTypeFromDescription;
 
+  // Extract memory information
+  const memoryFromTitle = listing.title ? extractMemory(listing.title) : null;
+  const memoryFromDescription = extractMemory(listing.description);
+  const memorySizeGB = memoryFromTitle || memoryFromDescription;
+
   // Create screen source information
   const screenSource = {
     foundInTitle: !!screenTypeFromTitle,
     foundInDescription: !!screenTypeFromDescription
+  };
+
+  // Create memory source information
+  const memorySource = {
+    foundInTitle: !!memoryFromTitle,
+    foundInDescription: !!memoryFromDescription
   };
 
   return {
@@ -202,6 +221,10 @@ export function analyzeListing(db: HardwareSpecsDB, listing: ToriListing): Analy
     screen: screenType ? {
       type: screenType,
       source: screenSource
+    } : null,
+    memory: memorySizeGB ? {
+      sizeGB: memorySizeGB,
+      source: memorySource
     } : null,
     performance,
     value

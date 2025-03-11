@@ -129,6 +129,13 @@ curl -X POST http://localhost:3000/api/listings \
         "foundInDescription": true
       }
     },
+    "memory": {
+      "sizeGB": 16,
+      "source": {
+        "foundInTitle": false,
+        "foundInDescription": true
+      }
+    },
     "performance": {
       "totalScore": 7576,
       "cpuScore": 6533,
@@ -170,6 +177,18 @@ The analysis now includes screen type information:
     - `foundInDescription`: Whether the screen type was found in the listing description
 
 This information helps users understand the display quality of the laptop, which is an important factor in the overall user experience.
+
+#### Memory Information
+
+The analysis now includes memory (RAM) information:
+
+- **Memory**:
+  - `sizeGB`: The size of RAM in gigabytes (GB)
+  - `source`: Information about where the memory information was found
+    - `foundInTitle`: Whether the memory size was found in the listing title
+    - `foundInDescription`: Whether the memory size was found in the listing description
+
+This information helps users understand the RAM capacity of the laptop, which is crucial for multitasking and overall performance.
 
 #### Error Response (400 Bad Request)
 

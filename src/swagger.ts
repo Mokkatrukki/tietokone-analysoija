@@ -199,6 +199,20 @@ export const swaggerDefinition: SwaggerOptions = {
                   }
                 }
               },
+              memory: {
+                type: 'object',
+                nullable: true,
+                properties: {
+                  sizeGB: { type: 'number', description: 'RAM size in GB' },
+                  source: {
+                    type: 'object',
+                    properties: {
+                      foundInTitle: { type: 'boolean' },
+                      foundInDescription: { type: 'boolean' }
+                    }
+                  }
+                }
+              },
               performance: {
                 type: 'object',
                 properties: {
