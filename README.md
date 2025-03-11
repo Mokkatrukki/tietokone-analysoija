@@ -122,6 +122,13 @@ curl -X POST http://localhost:3000/api/listings \
         "isIntegrated": true
       }
     },
+    "screen": {
+      "type": "IPS",
+      "source": {
+        "foundInTitle": false,
+        "foundInDescription": true
+      }
+    },
     "performance": {
       "totalScore": 7576,
       "cpuScore": 6533,
@@ -152,7 +159,17 @@ The analysis now includes performance and value metrics:
   - `cpuPointsPerEuro`: CPU performance points per euro
   - `gpuPointsPerEuro`: GPU performance points per euro
 
-These metrics help users compare different listings based on both raw performance and value for money.
+#### Screen Type Information
+
+The analysis now includes screen type information:
+
+- **Screen**:
+  - `type`: The type of screen (IPS, TN, OLED)
+  - `source`: Information about where the screen type was found
+    - `foundInTitle`: Whether the screen type was found in the listing title
+    - `foundInDescription`: Whether the screen type was found in the listing description
+
+This information helps users understand the display quality of the laptop, which is an important factor in the overall user experience.
 
 #### Error Response (400 Bad Request)
 

@@ -14,12 +14,12 @@ describe('Listing Analyzer', () => {
     cleanupTestDatabase(db);
   });
 
-  it('should analyze ThinkPad T480 listing and find CPU and integrated GPU', () => {
+  it('should analyze ThinkPad T480 listing and find CPU, integrated GPU, and IPS screen', () => {
     const listing: ToriListing = {
       id: 'test123',
       url: 'https://test.com/test123',
       title: 'ThinkPad T480',
-      description: 'Lenovo ThinkPad T480 kannettava tietokone. Intel Core i5-8250U prosessori, 16GB RAM, 512GB SSD.',
+      description: 'Lenovo ThinkPad T480 kannettava tietokone. Intel Core i5-8250U prosessori, 16GB RAM, 512GB SSD. IPS-näyttö.',
       price: 500,
       type: 'myydään',
       categories: {
@@ -60,6 +60,13 @@ describe('Listing Analyzer', () => {
           isIntegrated: true,
         }
       },
+      screen: {
+        type: 'IPS',
+        source: {
+          foundInTitle: false,
+          foundInDescription: true
+        }
+      },
       performance: {
         totalScore: 6888,
         cpuScore: 5845,
@@ -74,12 +81,12 @@ describe('Listing Analyzer', () => {
     });
   });
 
-  it('should calculate performance and value metrics with only CPU found', () => {
+  it('should calculate performance and value metrics with only CPU found and TN screen', () => {
     const listing: ToriListing = {
       id: 'test456',
       url: 'https://test.com/test456',
       title: 'ThinkPad T480',
-      description: 'Lenovo ThinkPad T480 kannettava tietokone. Intel Core i5-8250U prosessori, 16GB RAM, 512GB SSD.',
+      description: 'Lenovo ThinkPad T480 kannettava tietokone. Intel Core i5-8250U prosessori, 16GB RAM, 512GB SSD. tn full hd',
       price: 450,
       type: 'myydään',
       categories: {
@@ -115,6 +122,13 @@ describe('Listing Analyzer', () => {
         }
       },
       gpu: null,
+      screen: {
+        type: 'TN',
+        source: {
+          foundInTitle: false,
+          foundInDescription: true
+        }
+      },
       performance: {
         totalScore: 5845,
         cpuScore: 5845,
@@ -129,12 +143,12 @@ describe('Listing Analyzer', () => {
     });
   });
 
-  it('should handle missing price for value calculation', () => {
+  it('should handle missing price for value calculation and no screen info', () => {
     const listing: ToriListing = {
       id: 'test789',
       url: 'https://test.com/test789',
       title: 'ThinkPad T480',
-      description: 'Lenovo ThinkPad T480 kannettava tietokone. Intel Core i5-8250U prosessori, 16GB RAM, 512GB SSD.',
+      description: 'Lenovo ThinkPad T480 kannettava tietokone. Intel Core i5-8250U prosessori, 16GB RAM, 512GB SSD. 1920x1080',
       // Set price as undefined with type assertion
       price: undefined as unknown as number,
       type: 'myydään',
@@ -176,6 +190,7 @@ describe('Listing Analyzer', () => {
           isIntegrated: true,
         }
       },
+      screen: null,
       performance: {
         totalScore: 6888,
         cpuScore: 5845,
@@ -184,4 +199,6 @@ describe('Listing Analyzer', () => {
       value: null // Value should be null when price is missing
     });
   });
+
+  
 }); 

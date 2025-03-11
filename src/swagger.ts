@@ -185,6 +185,20 @@ export const swaggerDefinition: SwaggerOptions = {
                   }
                 }
               },
+              screen: {
+                type: 'object',
+                nullable: true,
+                properties: {
+                  type: { type: 'string', description: 'Screen type (IPS, TN, OLED)' },
+                  source: {
+                    type: 'object',
+                    properties: {
+                      foundInTitle: { type: 'boolean' },
+                      foundInDescription: { type: 'boolean' }
+                    }
+                  }
+                }
+              },
               performance: {
                 type: 'object',
                 properties: {

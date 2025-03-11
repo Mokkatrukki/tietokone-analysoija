@@ -4,6 +4,7 @@ import { HardwareSpecsDB } from './db/hardware-specs';
 import { extractGpu } from './utils/gpuExtractor';
 import { extractProcessor } from './utils/processorExtractor';
 import { isLaptopListing } from './utils/categoryUtils';
+import { extractScreenType } from './utils/screenExtractor';
 
 interface AnalysisResult {
   cpu: {
@@ -25,6 +26,13 @@ interface AnalysisResult {
       isIntegrated: boolean;
     };
   } | null;
+  screen: {
+    type: string;
+    source: {
+      foundInTitle: boolean;
+      foundInDescription: boolean;
+    };
+  } | null;
   performance: {
     totalScore: number;
     cpuScore: number | null;
@@ -36,6 +44,19 @@ interface AnalysisResult {
     cpuPointsPerEuro: number | null;
     gpuPointsPerEuro: number | null;
   } | null;
+}
+
+/**
+ * Checks if a GPU is integrated based on its name
+ * @param gpuName - The name of the GPU to check
+ * @returns True if the GPU is integrated, false otherwise
+ */
+function isIntegratedGpu(gpuName: string): boolean {
+  const lowerName = gpuName.toLowerCase();
+  return lowerName.includes('uhd graphics') || 
+         lowerName.includes('with radeon graphics') || 
+         lowerName.includes('integrated') ||
+         lowerName.includes('iris');
 }
 
 export function analyzeListing(db: HardwareSpecsDB, listing: ToriListing): AnalysisResult | null {
@@ -154,6 +175,17 @@ export function analyzeListing(db: HardwareSpecsDB, listing: ToriListing): Analy
     }
   }
 
+  // Extract screen type information
+  const screenTypeFromTitle = listing.title ? extractScreenType(listing.title) : null;
+  const screenTypeFromDescription = extractScreenType(listing.description);
+  const screenType = screenTypeFromTitle || screenTypeFromDescription;
+
+  // Create screen source information
+  const screenSource = {
+    foundInTitle: !!screenTypeFromTitle,
+    foundInDescription: !!screenTypeFromDescription
+  };
+
   return {
     cpu: cpuSpec ? {
       name: cpuSpec.name,
@@ -166,6 +198,10 @@ export function analyzeListing(db: HardwareSpecsDB, listing: ToriListing): Analy
       score: gpuSpec.score.toString(),
       rank: gpuSpec.rank.toString(),
       source: gpuSource
+    } : null,
+    screen: screenType ? {
+      type: screenType,
+      source: screenSource
     } : null,
     performance,
     value
