@@ -112,152 +112,97 @@ export const swaggerDefinition: SwaggerOptions = {
       AnalysisResult: {
         type: 'object',
         properties: {
-          success: {
-            type: 'boolean',
-            description: 'Indicates if the analysis was successful'
+          cpu: {
+            type: 'object',
+            nullable: true,
+            properties: {
+              name: { type: 'string' },
+              score: { type: 'string' },
+              rank: { type: 'string' },
+              source: {
+                type: 'object',
+                properties: {
+                  foundInDescription: { type: 'boolean' },
+                  foundInTitle: { type: 'boolean' },
+                },
+              },
+            },
           },
-          analysis: {
+          gpu: {
+            type: 'object',
+            nullable: true,
+            properties: {
+              name: { type: 'string' },
+              score: { type: 'string' },
+              rank: { type: 'string' },
+              source: {
+                type: 'object',
+                properties: {
+                  foundInDescription: { type: 'boolean' },
+                  foundInTitle: { type: 'boolean' },
+                  isIntegrated: { type: 'boolean' },
+                },
+              },
+            },
+          },
+          screen: {
+            type: 'object',
+            nullable: true,
+            properties: {
+              type: { type: 'string' },
+              source: {
+                type: 'object',
+                properties: {
+                  foundInDescription: { type: 'boolean' },
+                  foundInTitle: { type: 'boolean' },
+                },
+              },
+            },
+          },
+          memory: {
+            type: 'object',
+            nullable: true,
+            properties: {
+              sizeGB: { type: 'number' },
+              source: {
+                type: 'object',
+                properties: {
+                  foundInDescription: { type: 'boolean' },
+                  foundInTitle: { type: 'boolean' },
+                },
+              },
+            },
+          },
+          os: {
+            type: 'object',
+            nullable: true,
+            properties: {
+              name: { type: 'string' },
+              source: {
+                type: 'object',
+                properties: {
+                  foundInDescription: { type: 'boolean' },
+                  foundInTitle: { type: 'boolean' },
+                },
+              },
+            },
+          },
+          performance: {
             type: 'object',
             properties: {
-              cpu: {
-                type: 'object',
-                nullable: true,
-                properties: {
-                  name: {
-                    type: 'string',
-                    description: 'CPU model name'
-                  },
-                  score: {
-                    type: 'string',
-                    description: 'CPU benchmark score'
-                  },
-                  rank: {
-                    type: 'string',
-                    description: 'CPU rank in benchmark database'
-                  },
-                  source: {
-                    type: 'object',
-                    properties: {
-                      foundInDescription: {
-                        type: 'boolean',
-                        description: 'Whether CPU was found in listing description'
-                      },
-                      foundInTitle: {
-                        type: 'boolean',
-                        description: 'Whether CPU was found in listing title'
-                      }
-                    }
-                  }
-                }
-              },
-              gpu: {
-                type: 'object',
-                nullable: true,
-                properties: {
-                  name: {
-                    type: 'string',
-                    description: 'GPU model name'
-                  },
-                  score: {
-                    type: 'string',
-                    description: 'GPU benchmark score'
-                  },
-                  rank: {
-                    type: 'string',
-                    description: 'GPU rank in benchmark database'
-                  },
-                  source: {
-                    type: 'object',
-                    properties: {
-                      foundInDescription: {
-                        type: 'boolean',
-                        description: 'Whether GPU was found in listing description'
-                      },
-                      foundInTitle: {
-                        type: 'boolean',
-                        description: 'Whether GPU was found in listing title'
-                      },
-                      isIntegrated: {
-                        type: 'boolean',
-                        description: 'Whether GPU is integrated with CPU'
-                      }
-                    }
-                  }
-                }
-              },
-              screen: {
-                type: 'object',
-                nullable: true,
-                properties: {
-                  type: { type: 'string', description: 'Screen type (IPS, TN, OLED)' },
-                  source: {
-                    type: 'object',
-                    properties: {
-                      foundInTitle: { type: 'boolean' },
-                      foundInDescription: { type: 'boolean' }
-                    }
-                  }
-                }
-              },
-              memory: {
-                type: 'object',
-                nullable: true,
-                properties: {
-                  sizeGB: { type: 'number', description: 'RAM size in GB' },
-                  source: {
-                    type: 'object',
-                    properties: {
-                      foundInTitle: { type: 'boolean' },
-                      foundInDescription: { type: 'boolean' }
-                    }
-                  }
-                }
-              },
-              performance: {
-                type: 'object',
-                properties: {
-                  totalScore: {
-                    type: 'number',
-                    description: 'Combined CPU and GPU benchmark score'
-                  },
-                  cpuScore: {
-                    type: 'number',
-                    nullable: true,
-                    description: 'CPU benchmark score as a number'
-                  },
-                  gpuScore: {
-                    type: 'number',
-                    nullable: true,
-                    description: 'GPU benchmark score as a number'
-                  }
-                }
-              },
-              value: {
-                type: 'object',
-                nullable: true,
-                properties: {
-                  priceEur: {
-                    type: 'number',
-                    description: 'Price in euros'
-                  },
-                  totalPointsPerEuro: {
-                    type: 'number',
-                    description: 'Total performance points per euro (value metric)'
-                  },
-                  cpuPointsPerEuro: {
-                    type: 'number',
-                    nullable: true,
-                    description: 'CPU performance points per euro'
-                  },
-                  gpuPointsPerEuro: {
-                    type: 'number',
-                    nullable: true,
-                    description: 'GPU performance points per euro'
-                  }
-                }
-              }
-            }
-          }
+              totalScore: { type: 'number' },
+              cpuScore: { type: 'number' },
+              gpuScore: { type: 'number' },
+            },
+          },
+          value: {
+            type: 'object',
+            nullable: true,
+            properties: {
+              rating: { type: 'number' },
+              explanation: { type: 'string' },
+            },
+          },
         }
       }
     }

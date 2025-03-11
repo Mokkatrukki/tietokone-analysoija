@@ -19,7 +19,7 @@ describe('Listing Analyzer', () => {
       id: 'test123',
       url: 'https://test.com/test123',
       title: 'ThinkPad T480',
-      description: 'Lenovo ThinkPad T480 kannettava tietokone. Intel Core i5-8250U prosessori, 16GB RAM, 512GB SSD. IPS-näyttö.',
+      description: 'Lenovo ThinkPad T480 kannettava tietokone. Intel Core i5-8250U prosessori, 16GB RAM, 512GB SSD. IPS-näyttö. Windows 10 Pro.',
       price: 500,
       type: 'myydään',
       categories: {
@@ -55,9 +55,9 @@ describe('Listing Analyzer', () => {
         score: '1043',
         rank: '1163',
         source: {
-          foundInDescription: true,
           foundInTitle: false,
-          isIntegrated: true,
+          foundInDescription: true,
+          isIntegrated: true
         }
       },
       screen: {
@@ -69,6 +69,13 @@ describe('Listing Analyzer', () => {
       },
       memory: {
         sizeGB: 16,
+        source: {
+          foundInTitle: false,
+          foundInDescription: true
+        }
+      },
+      os: {
+        name: 'Windows 10 Pro',
         source: {
           foundInTitle: false,
           foundInDescription: true
@@ -143,6 +150,7 @@ describe('Listing Analyzer', () => {
           foundInDescription: true
         }
       },
+      os: null,
       performance: {
         totalScore: 5845,
         cpuScore: 5845,
@@ -163,24 +171,18 @@ describe('Listing Analyzer', () => {
       url: 'https://test.com/test789',
       title: 'ThinkPad T480',
       description: 'Lenovo ThinkPad T480 kannettava tietokone. Intel Core i5-8250U prosessori, 1920x1080',
-      // Set price as undefined with type assertion
       price: undefined as unknown as number,
       type: 'myydään',
       categories: {
-        full: "Tori / Elektroniikka ja kodinkoneet / Tietotekniikka / Kannettavat tietokoneet",
-        levels: [
-          "Tori",
-          "Elektroniikka ja kodinkoneet",
-          "Tietotekniikka",
-          "Kannettavat tietokoneet"
-        ],
-        primary: "Elektroniikka ja kodinkoneet",
-        secondary: "Tietotekniikka",
-        tertiary: "Kannettavat tietokoneet"
+        full: 'Tori / Elektroniikka ja kodinkoneet / Tietotekniikka / Kannettavat tietokoneet',
+        levels: ['Tori', 'Elektroniikka ja kodinkoneet', 'Tietotekniikka', 'Kannettavat tietokoneet'],
+        primary: 'Elektroniikka ja kodinkoneet',
+        secondary: 'Tietotekniikka',
+        tertiary: 'Kannettavat tietokoneet',
       },
       additionalInfo: {},
       address: 'Test City',
-      sellerType: 'yksityinen'
+      sellerType: 'yksityinen',
     };
 
     const result = analyzeListing(db, listing);
@@ -191,8 +193,8 @@ describe('Listing Analyzer', () => {
         rank: '1807',
         source: {
           foundInDescription: true,
-          foundInTitle: false
-        }
+          foundInTitle: false,
+        },
       },
       gpu: {
         name: 'Intel UHD Graphics 620',
@@ -202,16 +204,17 @@ describe('Listing Analyzer', () => {
           foundInDescription: true,
           foundInTitle: false,
           isIntegrated: true,
-        }
+        },
       },
-      screen: null,
       memory: null,
+      screen: null,
+      os: null,
       performance: {
         totalScore: 6888,
         cpuScore: 5845,
-        gpuScore: 1043
+        gpuScore: 1043,
       },
-      value: null // Value should be null when price is missing
+      value: null,
     });
   });
 
@@ -263,6 +266,104 @@ describe('Listing Analyzer', () => {
     });
     expect(result?.memory).toEqual({
       sizeGB: 16,
+      source: {
+        foundInTitle: false,
+        foundInDescription: true
+      }
+    });
+  });
+
+  it('should analyze Samsung Galaxy Book Pro OLED listing and find CPU, memory, and OS', () => {
+    const listing: ToriListing = {
+      id: 'test101',
+      url: 'https://test.com/test101',
+      title: 'Samsung Galaxy Book Pro OLED',
+      description: 'Samsung Galaxy Book Pro kannettava tietokone. Intel Core i7-1165G7, 16GB RAM, 512GB SSD. Windows 11.',
+      price: 800,
+      type: 'myydään',
+      categories: {
+        full: "Tori / Elektroniikka ja kodinkoneet / Tietotekniikka / Kannettavat tietokoneet",
+        levels: [
+          "Tori",
+          "Elektroniikka ja kodinkoneet",
+          "Tietotekniikka",
+          "Kannettavat tietokoneet"
+        ],
+        primary: "Elektroniikka ja kodinkoneet",
+        secondary: "Tietotekniikka",
+        tertiary: "Kannettavat tietokoneet"
+      },
+      additionalInfo: {},
+      address: 'Test City',
+      sellerType: 'yksityinen'
+    };
+
+    // Mock the CPU search function to return a specific result
+    jest.spyOn(db, 'searchCpuSpecs').mockReturnValue({
+      name: 'Core i7-1165G7',
+      score: '10000',
+      rank: '1000'
+    });
+
+    const result = analyzeListing(db, listing);
+    expect(result?.screen).toEqual({
+      type: 'OLED',
+      source: {
+        foundInTitle: true,
+        foundInDescription: false
+      }
+    });
+    expect(result?.memory).toEqual({
+      sizeGB: 16,
+      source: {
+        foundInTitle: false,
+        foundInDescription: true
+      }
+    });
+    expect(result?.os).toEqual({
+      name: 'Windows 11',
+      source: {
+        foundInTitle: false,
+        foundInDescription: true
+      }
+    });
+  });
+
+  it('should analyze Linux laptop listing and find OS', () => {
+    const listing: ToriListing = {
+      id: 'test102',
+      url: 'https://test.com/test102',
+      title: 'ThinkPad X1 Carbon',
+      description: 'Lenovo ThinkPad X1 Carbon kannettava tietokone. Intel Core i7-10510U, 16GB RAM, 512GB SSD. Linux Ubuntu.',
+      price: 700,
+      type: 'myydään',
+      categories: {
+        full: "Tori / Elektroniikka ja kodinkoneet / Tietotekniikka / Kannettavat tietokoneet",
+        levels: [
+          "Tori",
+          "Elektroniikka ja kodinkoneet",
+          "Tietotekniikka",
+          "Kannettavat tietokoneet"
+        ],
+        primary: "Elektroniikka ja kodinkoneet",
+        secondary: "Tietotekniikka",
+        tertiary: "Kannettavat tietokoneet"
+      },
+      additionalInfo: {},
+      address: 'Test City',
+      sellerType: 'yksityinen'
+    };
+
+    // Mock the CPU search function to return a specific result
+    jest.spyOn(db, 'searchCpuSpecs').mockReturnValue({
+      name: 'Core i7-10510U',
+      score: '8000',
+      rank: '1200'
+    });
+
+    const result = analyzeListing(db, listing);
+    expect(result?.os).toEqual({
+      name: 'Linux (Ubuntu)',
       source: {
         foundInTitle: false,
         foundInDescription: true

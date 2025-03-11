@@ -6,6 +6,7 @@ import { extractProcessor } from './utils/processorExtractor';
 import { isLaptopListing } from './utils/categoryUtils';
 import { extractScreenType } from './utils/screenExtractor';
 import { extractMemory } from './utils/memoryExtractor';
+import { extractOs } from './utils/osExtractor';
 
 interface AnalysisResult {
   cpu: {
@@ -36,6 +37,13 @@ interface AnalysisResult {
   } | null;
   memory: {
     sizeGB: number;
+    source: {
+      foundInTitle: boolean;
+      foundInDescription: boolean;
+    };
+  } | null;
+  os: {
+    name: string;
     source: {
       foundInTitle: boolean;
       foundInDescription: boolean;
@@ -205,6 +213,17 @@ export function analyzeListing(db: HardwareSpecsDB, listing: ToriListing): Analy
     foundInDescription: !!memoryFromDescription
   };
 
+  // Extract OS information
+  const osFromTitle = listing.title ? extractOs(listing.title) : null;
+  const osFromDescription = extractOs(listing.description);
+  const osName = osFromTitle || osFromDescription;
+
+  // Create OS source information
+  const osSource = {
+    foundInTitle: !!osFromTitle,
+    foundInDescription: !!osFromDescription
+  };
+
   return {
     cpu: cpuSpec ? {
       name: cpuSpec.name,
@@ -225,6 +244,10 @@ export function analyzeListing(db: HardwareSpecsDB, listing: ToriListing): Analy
     memory: memorySizeGB ? {
       sizeGB: memorySizeGB,
       source: memorySource
+    } : null,
+    os: osName ? {
+      name: osName,
+      source: osSource
     } : null,
     performance,
     value

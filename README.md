@@ -246,4 +246,28 @@ fetch('http://localhost:3000/api/listings', {
 
 ## License
 
-[Your License Here] 
+[Your License Here]
+
+## Features
+
+The API analyzes laptop listings from Tori.fi and provides the following information:
+
+- **CPU Identification**: Extracts CPU model information from the listing title and description.
+- **GPU Identification**: Extracts GPU model information from the listing title and description.
+- **Screen Type Analysis**: Identifies the screen type (TN, IPS, OLED) from the listing.
+- **Memory Size Analysis**: Extracts RAM size information from the listing.
+- **Operating System Detection**: Identifies the operating system (Windows, macOS, Linux) from the listing.
+- **Performance Metrics**: Provides benchmark scores for the identified hardware.
+- **Value Assessment**: Calculates a value rating based on performance and price.
+
+### Analysis Result
+
+The analysis result includes:
+
+- **CPU Information**: Model name, benchmark score, and rank.
+- **GPU Information**: Model name, benchmark score, and rank.
+- **Screen Type**: The type of screen (TN, IPS, OLED).
+- **Memory Size**: The amount of RAM in GB.
+- **Operating System**: The detected OS (Windows, macOS, Linux).
+- **Performance Metrics**: Combined and individual benchmark scores.
+- **Value Rating**: Assessment of the laptop's value for money. 
