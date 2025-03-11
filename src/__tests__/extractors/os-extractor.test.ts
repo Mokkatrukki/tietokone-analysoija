@@ -147,5 +147,11 @@ Windows 11`;
       const description = "Laptop with Windows   11 operating system";
       expect(extractOs(description)).toBe('Windows 11');
     });
+
+    it('should handle common typos like "Windos"', () => {
+      expect(extractOs('Laptop with Windos 10 Pro')).toBe('Windows 10 Pro');
+      expect(extractOs('Windos 11 installed')).toBe('Windows 11');
+      expect(extractOs('Comes with Windos 10')).toBe('Windows 10');
+    });
   });
 }); 

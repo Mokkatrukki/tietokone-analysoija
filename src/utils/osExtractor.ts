@@ -10,17 +10,15 @@ export function extractOs(description: string): string | null {
   
   // Windows patterns
   const windows11Patterns = [
-    /windows\s*11(?:\s*pro)?/i,
-    /win(?:dows)?\s*11(?:\s*pro)?/i,
-    /käyttöjärjestelmä:?\s*windows\s*11(?:\s*pro)?/i,
-    /windows\s*11(?:\s*pro)?\s*käyttöjärjestelmä/i
+    /win(?:d?o?w?s)?\s*11(?:\s*pro)?/i,
+    /käyttöjärjestelmä:?\s*win(?:d?o?w?s)?\s*11(?:\s*pro)?/i,
+    /win(?:d?o?w?s)?\s*11(?:\s*pro)?\s*käyttöjärjestelmä/i
   ];
   
   const windows10Patterns = [
-    /windows\s*10(?:\s*pro)?/i,
-    /win(?:dows)?\s*10(?:\s*pro)?/i,
-    /käyttöjärjestelmä:?\s*windows\s*10(?:\s*pro)?/i,
-    /windows\s*10(?:\s*pro)?\s*käyttöjärjestelmä/i
+    /win(?:d?o?w?s)?\s*10(?:\s*pro)?/i,
+    /käyttöjärjestelmä:?\s*win(?:d?o?w?s)?\s*10(?:\s*pro)?/i,
+    /win(?:d?o?w?s)?\s*10(?:\s*pro)?\s*käyttöjärjestelmä/i
   ];
   
   // Linux patterns
