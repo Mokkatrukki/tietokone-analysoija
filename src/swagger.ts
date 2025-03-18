@@ -70,6 +70,32 @@ export const swaggerDefinition: SwaggerOptions = {
           }
         }
       },
+      SimpleAnalyzerInput: {
+        type: 'object',
+        required: ['url', 'title', 'specs', 'price'],
+        properties: {
+          url: {
+            type: 'string',
+            format: 'uri',
+            description: 'URL of the listing',
+          },
+          title: {
+            type: 'string',
+            description: 'Title of the listing',
+          },
+          specs: {
+            type: 'string',
+            description: 'Specifications of the product',
+          },
+          price: {
+            oneOf: [
+              { type: 'number', minimum: 0 },
+              { type: 'string' }
+            ],
+            description: 'Price of the item (can be number or string)'
+          }
+        }
+      },
       Error: {
         type: 'object',
         properties: {
@@ -220,6 +246,61 @@ export const swaggerDefinition: SwaggerOptions = {
             }
           }
         }
+      },
+      SimpleAnalysisResult: {
+        type: 'object',
+        properties: {
+          cpu: {
+            type: 'object',
+            nullable: true,
+            properties: {
+              name: { type: 'string' },
+              score: { type: 'string' },
+              rank: { type: 'string' }
+            }
+          },
+          gpu: {
+            type: 'object',
+            nullable: true,
+            properties: {
+              name: { type: 'string' },
+              score: { type: 'string' },
+              rank: { type: 'string' },
+              isIntegrated: { type: 'boolean' }
+            }
+          },
+          screen: {
+            type: 'object',
+            nullable: true,
+            properties: {
+              type: { type: 'string' }
+            }
+          },
+          os: {
+            type: 'object',
+            nullable: true,
+            properties: {
+              name: { type: 'string' }
+            }
+          },
+          price: { type: 'number' },
+          performance: {
+            type: 'object',
+            properties: {
+              totalScore: { type: 'number' },
+              cpuScore: { type: 'number', nullable: true },
+              gpuScore: { type: 'number', nullable: true }
+            }
+          },
+          value: {
+            type: 'object',
+            properties: {
+              totalPointsPerEuro: { type: 'number' },
+              cpuPointsPerEuro: { type: 'number', nullable: true },
+              gpuPointsPerEuro: { type: 'number', nullable: true }
+            }
+          }
+        }
       }
     }
   },
@@ -244,36 +325,87 @@ export const swaggerDefinition: SwaggerOptions = {
             content: {
               'application/json': {
                 schema: {
-                  $ref: '#/components/schemas/AnalysisResult'
+                  type: 'object',
+                  properties: {
+                    success: { type: 'boolean' },
+                    analysis: {
+                      $ref: '#/components/schemas/AnalysisResult'
+                    }
+                  }
                 }
               }
             }
           },
           '400': {
-            description: 'Bad request',
+            description: 'Invalid input',
+            content: {
+              'application/json': {
+                schema: {
+                  $ref: '#/components/schemas/Error'
+                }
+              }
+            }
+          },
+          '500': {
+            description: 'Server error',
+            content: {
+              'application/json': {
+                schema: {
+                  $ref: '#/components/schemas/Error'
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    '/api/simple-analysis': {
+      post: {
+        summary: 'Simple listing analyzer',
+        description: 'Analyzes a simplified listing input by extracting and evaluating CPU and GPU specifications',
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                $ref: '#/components/schemas/SimpleAnalyzerInput'
+              }
+            }
+          }
+        },
+        responses: {
+          '200': {
+            description: 'Successful analysis',
             content: {
               'application/json': {
                 schema: {
                   type: 'object',
                   properties: {
-                    error: {
-                      type: 'string'
-                    },
-                    details: {
-                      type: 'array',
-                      items: {
-                        type: 'object',
-                        properties: {
-                          field: {
-                            type: 'string'
-                          },
-                          message: {
-                            type: 'string'
-                          }
-                        }
-                      }
+                    success: { type: 'boolean' },
+                    analysis: {
+                      $ref: '#/components/schemas/SimpleAnalysisResult'
                     }
                   }
+                }
+              }
+            }
+          },
+          '400': {
+            description: 'Invalid input',
+            content: {
+              'application/json': {
+                schema: {
+                  $ref: '#/components/schemas/Error'
+                }
+              }
+            }
+          },
+          '500': {
+            description: 'Server error',
+            content: {
+              'application/json': {
+                schema: {
+                  $ref: '#/components/schemas/Error'
                 }
               }
             }

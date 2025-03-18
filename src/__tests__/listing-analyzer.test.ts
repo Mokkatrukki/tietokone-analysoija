@@ -41,6 +41,7 @@ describe('Listing Analyzer', () => {
 
     const result = analyzeListing(db, listing);
     expect(result).toEqual({
+      listingType: 'laptop',
       cpu: {
         name: 'Core i5-8250U',
         score: '5845',
@@ -83,6 +84,8 @@ describe('Listing Analyzer', () => {
       },
       thinkpad: {
         model: 'T480',
+        windows11Compatible: undefined,
+        specs: undefined,
         source: {
           foundInTitle: true,
           foundInDescription: true
@@ -133,6 +136,7 @@ describe('Listing Analyzer', () => {
 
     const result = analyzeListing(db, listing);
     expect(result).toEqual({
+      listingType: 'laptop',
       cpu: {
         name: 'Core i5-8250U',
         score: '5845',
@@ -160,6 +164,8 @@ describe('Listing Analyzer', () => {
       os: null,
       thinkpad: {
         model: 'T480',
+        windows11Compatible: undefined,
+        specs: undefined,
         source: {
           foundInTitle: true,
           foundInDescription: true
@@ -201,6 +207,7 @@ describe('Listing Analyzer', () => {
 
     const result = analyzeListing(db, listing);
     expect(result).toEqual({
+      listingType: 'laptop',
       cpu: {
         name: 'Core i5-8250U',
         score: '5845',
@@ -225,6 +232,8 @@ describe('Listing Analyzer', () => {
       os: null,
       thinkpad: {
         model: 'T480',
+        windows11Compatible: undefined,
+        specs: undefined,
         source: {
           foundInTitle: true,
           foundInDescription: true
@@ -435,6 +444,7 @@ describe('Listing Analyzer', () => {
 
     const result = analyzeListing(db as any, listing);
     expect(result).toEqual({
+      listingType: 'laptop',
       cpu: {
         name: 'Core i5-8250U',
         score: '5845',
@@ -488,5 +498,126 @@ describe('Listing Analyzer', () => {
         gpuPointsPerEuro: 2.09,
       },
     });
+  });
+
+  it('should analyze desktop computer listing and include the correct listingType', () => {
+    const listing: ToriListing = {
+      id: 'desktop123',
+      url: 'https://test.com/desktop123',
+      title: 'Gaming-tietokone GTX 1660 Super',
+      description: 'Pelikone, jossa Intel Core i5-10400F, 16GB RAM, 512GB M.2 SSD ja GTX 1660 Super näytönohjain. Windows 10.',
+      price: 800,
+      type: 'myydään',
+      categories: {
+        full: "Tori / Elektroniikka ja kodinkoneet / Tietotekniikka / Pöytäkoneet",
+        levels: [
+          "Tori",
+          "Elektroniikka ja kodinkoneet", 
+          "Tietotekniikka",
+          "Pöytäkoneet"
+        ],
+        primary: "Elektroniikka ja kodinkoneet",
+        secondary: "Tietotekniikka",
+        tertiary: "Pöytäkoneet"
+      },
+      additionalInfo: {},
+      address: 'Test City',
+      sellerType: 'yksityinen'
+    };
+
+    // Mock the CPU and GPU search to return test values
+    jest.spyOn(db, 'searchCpuSpecs').mockReturnValue({
+      name: 'Core i5-10400F',
+      score: '9500',
+      rank: '1100'
+    });
+    
+    jest.spyOn(db, 'searchGpuSpecs').mockReturnValue({
+      name: 'GeForce GTX 1660 Super',
+      score: '12000',
+      rank: '500'
+    });
+
+    const result = analyzeListing(db, listing);
+    
+    expect(result).toBeTruthy();
+    expect(result?.listingType).toEqual('desktop');
+    expect(result?.cpu).toEqual({
+      name: 'Core i5-10400F',
+      score: '9500',
+      rank: '1100',
+      source: {
+        foundInDescription: true,
+        foundInTitle: false
+      }
+    });
+    expect(result?.gpu).toEqual({
+      name: 'GeForce GTX 1660 Super',
+      score: '12000',
+      rank: '500',
+      source: {
+        foundInTitle: true,
+        foundInDescription: true,
+        isIntegrated: false
+      }
+    });
+    expect(result?.memory).toEqual({
+      sizeGB: 16,
+      source: {
+        foundInTitle: false,
+        foundInDescription: true
+      }
+    });
+    expect(result?.os).toEqual({
+      name: 'Windows 10',
+      source: {
+        foundInTitle: false,
+        foundInDescription: true
+      }
+    });
+  });
+
+  it('should analyze laptop listing and include the correct listingType', () => {
+    const listing: ToriListing = {
+      id: 'laptop123',
+      url: 'https://test.com/laptop123',
+      title: 'Dell XPS 13',
+      description: 'Dell XPS 13 kannettava, Intel Core i7-1165G7, 16GB RAM, 512GB SSD, Windows 11.',
+      price: 1000,
+      type: 'myydään',
+      categories: {
+        full: "Tori / Elektroniikka ja kodinkoneet / Tietotekniikka / Kannettavat tietokoneet",
+        levels: [
+          "Tori",
+          "Elektroniikka ja kodinkoneet",
+          "Tietotekniikka",
+          "Kannettavat tietokoneet"
+        ],
+        primary: "Elektroniikka ja kodinkoneet",
+        secondary: "Tietotekniikka",
+        tertiary: "Kannettavat tietokoneet"
+      },
+      additionalInfo: {},
+      address: 'Test City',
+      sellerType: 'yksityinen'
+    };
+
+    // Mock the CPU and GPU search to return test values
+    jest.spyOn(db, 'searchCpuSpecs').mockReturnValue({
+      name: 'Core i7-1165G7',
+      score: '11500',
+      rank: '800'
+    });
+    
+    jest.spyOn(db, 'searchGpuSpecs').mockReturnValue({
+      name: 'Intel Iris Xe Graphics',
+      score: '3000',
+      rank: '850'
+    });
+
+    const result = analyzeListing(db, listing);
+    
+    expect(result).toBeTruthy();
+    expect(result?.listingType).toEqual('laptop');
   });
 }); 

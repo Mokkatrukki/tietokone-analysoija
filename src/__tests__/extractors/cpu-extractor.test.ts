@@ -84,6 +84,11 @@ describe('CPU Information Extraction', () => {
       expect(extractProcessor(description)).toBe('Ryzen 7 5800X');
     });
 
+    it('should extract Ryzen 5 5500 from gaming PC listing', () => {
+      const description = "AMD Ryzen™ 5 5500 -prosessoriNVIDIA GeForce RTX 3050 -näytönohjain8 GB DDR4 RAM, 512 GB SSD-muisti";
+      expect(extractProcessor(description)).toBe('Ryzen 5 5500');
+    });
+
     it('should extract EPYC 7763 from server listing', () => {
       const description = "Enterprise palvelin: AMD EPYC 7763 64-core prosessori, 512GB ECC RAM";
       expect(extractProcessor(description)).toBe('EPYC 7763');
