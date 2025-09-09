@@ -23,16 +23,5 @@ build/
 # Test coverage
 coverage/
 
-# CPU Specs data files
-cpu-specs.db
-cpu-specs.json
-gpu-specs.json
-intel-cpu-gpu.json
-hardware-specs.db
-thinkpad-windows11compatible.json
-
-# Listings data files
-listings.db
-
-# Database files
-*.db
+# Old database files (keeping only the old one ignored)
+hardware-specs-old.db

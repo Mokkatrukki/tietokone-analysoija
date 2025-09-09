@@ -1,0 +1,2837 @@
+[
+    {
+      "model": "T601",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "9.0c",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "T60p1",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "9.0c",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "R601",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "9.0c",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "R60i1",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "9.0c",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "R60e1",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "9.0c",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "X601",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "9.0c",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "X60s1",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "9.0c",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "X60 tablet1",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "9.0c",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "T61p",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "R61",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.0",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "R61i",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.0",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "R61e",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.0",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "Z61e1",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "9.0c",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "Z61m1",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "9.0c",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "Z61t^",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "9.0c",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "Z61p",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "9.0c",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "X61",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.0",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "X61s",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.0",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "Reserve Edition",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.0",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "X61 tablet",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.0",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "T400",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.0",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "R400",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.0",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "T400s",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.0",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "T500",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.0",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "R500",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.0",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "SL300",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.0",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "SL400",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.0",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "SL400c",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.0",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "SL500",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.0",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "X100e",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.0",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "X200",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.0",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "X200s",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.0",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "X200si",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.0",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "X200 tablet",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.0",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "X300",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.0",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "W500",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.0",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "W700",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "W700ds",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "X201",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "X201i",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "X201s",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "X201 tablet",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "X201i tablet",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "X301",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "W701",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "W701ds",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "T410",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "T410i",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "T410s",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "T410si",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "T510",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "T510i",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "Edge 11 / E10",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "Edge 13 / E30 / E31",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.0",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "Edge 14 / E40",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "Edge 15 / E50",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "SL410",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.0",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "SL510",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.0",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "L410",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "L510",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "W510",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "T420",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "T420i",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "T420s",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "T420si",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "T520",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "T520i",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "W520",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "E220s",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "E320",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "E325",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "E420",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "E425",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "E420s",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "E520",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "E525",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "L420",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "L421",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "L520",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "L412",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "L512",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "X120e",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "X121e",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "X220",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "X220i",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "X220 tablet",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "X220i tablet",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "X1 Gen 0",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "X1 Hybrid",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "10.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": false
+      }
+    },
+    {
+      "model": "T430",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T430i",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T430s",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T430si",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T430u",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T431s",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T530",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T530i",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "W530",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E130",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E135",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E430",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E430c",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E431",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E435",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E530",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E530c",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E531",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E535",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "Helix",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X1 Helix",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X1 Helix 3G",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "S230u (twist)",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "S531",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "L430",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "L530",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X130e",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X131e",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X230",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X230i",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X230s",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X230 tablet",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X230i tablet",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X1C Gen 1",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "Yoga S1",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "Yoga 12",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "11.1",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T440",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T440p",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T440s",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T540p",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "W540",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "W541",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E145",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E440",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E540",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E545",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E445",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "Helix II",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "S440",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "L440",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "L540",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X240",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X240s",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X1C Gen 2",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "Yoga 11e Gen 1",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "S3 Yoga 14",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "S5 Yoga 15",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T450",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T450s",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T550",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "W550s",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E450",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E450c",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E455",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E550",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E550c",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E555",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "L450",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X250",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X1C Gen 3",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "11e Yoga Gen 2",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "Yoga 260",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T460",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T460p",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T460s",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T560",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "P50s",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "P50",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "P70",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "P40 Yoga",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "ThinkPad S3",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "Yoga 460",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "Yoga 14 (20FY)",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E460",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E465",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E560",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E565",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "L460",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "L560",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "11e Yoga Gen 3",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X1 Yoga Gen 1",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X1C Gen 4",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X1 Tablet Gen 1",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X260",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T470",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "ThinkPad 25",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T470p",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T470s",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T570",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "P51s",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "A475",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "P51",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "P71",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E470",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E470c",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E475",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E570",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E575",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E570c",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E570p",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "Thinkpad 13 / S2",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "L470",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "L570",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "11e Yoga Gen 4",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "Yoga 370",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "Yoga S1 Gen 3",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X1 Yoga Gen 2",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X270",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X1 Tablet Gen 2",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X1C Gen 5",
+      "windows11Compatible": false,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "1.2/2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T480",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T480s",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T580",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "P52s",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "A485",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "P52",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "P72",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E480",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E485",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E580",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E585",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "L380",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "L380 Yoga",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "ThinkPad S2",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "ThinkPad S2 Yoga",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "L480",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "L580",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "R480",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "R580",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X380 Yoga",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "Yoga S1 Gen 4",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "11e Yoga Gen 5",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X1 Yoga Gen 3",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X280",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X1 Tablet Gen 3",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X1C Gen 6",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X1 Extreme Gen 1",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "P1 Gen 1",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T490",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T490s",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T495",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T495s",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T590",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "P43s",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "P53s",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X390",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "P53",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "P73",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E490",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E490s",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E495",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E590",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E595",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "L390",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "ThinkPad S2 Yoga Gen 4",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "L390 Yoga",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "ThinkPad S2 Gen 4",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "L490",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "L590",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "R490",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "R590",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "ThinkPad S3",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X390 Yoga",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X1 Yoga Gen 4",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X395",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X1C Gen 7",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X1 Extreme Gen 2",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "P1 Gen 2",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "11e Yoga Gen 6",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T14",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T14s",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T15",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T15p",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T15g",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "P15",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "P17",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "P14s",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "P15s",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E14",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E15",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "L13",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "L13 Yoga",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "L14",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "L15",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X13 Yoga",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "11e Yoga Gen 6",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X1 Yoga Gen 5",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X13",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X1C Gen 8",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X1 Extreme Gen 3",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "P1 Gen 3",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E14 Gen 2 (Intel)",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E14 Gen 2 (AMD)",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E15 Gen 2 (Intel)",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "E15 Gen 2 (AMD)",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "C13",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X1C Gen 9",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X1 Yoga Gen 6",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X1 Fold",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X1 Nano",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X1T Yoga",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "L13 Gen 2",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "L13 Yoga Gen 2",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "L14 Gen 2",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "L15 Gen 2",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X13 Gen 2",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X13 Yoga Gen 2",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "X12 Detachable",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T14 Gen 2 (AMD)",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T14 Gen 2 (Intel)",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T14s Gen 2 (Intel)",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T15 Gen 2",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T15g",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "T15p",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "P14s Gen 2 (Intel)",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    },
+    {
+      "model": "P15s Gen 2 (Intel)",
+      "windows11Compatible": true,
+      "specs": {
+        "directXVersion": "12",
+        "tpmVersion": "2.0",
+        "secureBootSupport": true
+      }
+    }
+  ]
